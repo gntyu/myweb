@@ -9,6 +9,10 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import UserForgetPassword from './pages/UserForgetPassword';
 import UserLogin from './pages/UserLogin';
+import Newslist from './pages/Newslist';
+import Newapi from './pages/Newapi';
+
+import Apilist from './pages/Apilist';
 import UserRegister from './pages/UserRegister';
 
 const routerConfig = [
@@ -36,6 +40,21 @@ const routerConfig = [
     path: '/forgetpassword',
     layout: UserLayout,
     component: UserForgetPassword,
+  },
+  {
+    path: '/newslist',
+    layout: BasicLayout,
+    component: Newslist,
+  },
+  {
+    path: '/newapi',
+    layout: BasicLayout,
+    component: Newapi,
+  },
+  {
+    path: '/apilist',
+    layout: BasicLayout,
+    component: Apilist,
   },
   {
     path: '*',

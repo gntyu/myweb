@@ -31,16 +31,16 @@ const asideMenuConfig = [
     path: '/',
   },
   {
-    name: '应用查询',
-    path: '/query',
+    name: '新闻',
+    path: '/newslist',
   },
   {
-    name: '版本对比',
-    path: '/version',
+    name: '创建接口',
+    path: '/newapi',
   },
   {
-    name: '操作指北',
-    path: '/guidelines',
+    name: '接口管理',
+    path: '/apilist',
   },
   {
     name: '资源申请',
