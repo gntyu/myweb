@@ -48,6 +48,14 @@ const SwitchForForm = (props) => {
     defaultBindingData: {
  
     }
+  },
+  'getsys': {
+    url: '/api/getsys',
+    method: 'get',
+    data: { },
+    defaultBindingData: {
+        list:[]
+    }
   }
 })
 export default class CreateActivityForm extends Component {
@@ -64,9 +72,15 @@ export default class CreateActivityForm extends Component {
         result: '',
         nums: 0,
         isRandom:false,
-        isExtend: false
+        isExtend: false,
+        syscode:'uc',
       },
+      // defaultValue:'',
     };
+  }
+
+  componentWillMount(){
+    this.props.updateBindingData('getsys');
   }
 
   onFormChange = (value) => {
@@ -83,7 +97,8 @@ export default class CreateActivityForm extends Component {
         result: '',
         nums: 0,
         isRandom:false,
-        isExtend: false
+        isExtend: false,
+        syscode:'uc',
       },
     });
   };
@@ -110,6 +125,7 @@ export default class CreateActivityForm extends Component {
   };
 
   render() {
+    const { list } =this.props.bindingData.getsys;
     return (
       <div className="create-activity-form">
         <IceContainer title="创建新的api" style={styles.container}>
@@ -127,17 +143,33 @@ export default class CreateActivityForm extends Component {
                 </Col>
 
                 <Col s="12" l="10">
-                  dyapi/
+                  /api-portal/
                   <IceFormBinder
                     name="path"
                     required
                     message="api路径必须填写"
                   >
-                    <Input style={{ width: '90%' }} />
+                    <Input style={{ width: '80%' }} />
                   </IceFormBinder>
                   <IceFormError name="path" />
                 </Col>
               </Row>
+              <Row style={styles.formItem}>
+                <Col xxs="6" s="2" l="2" style={styles.formLabel}>
+                  所属系统：
+                </Col>
+                <Col s="12" l="10">
+                  <IceFormBinder name="syscode" >
+                    <Select
+                      className="next-form-text-align"
+                      style={{width:'100%'}}
+                      defaultValue="uc"
+                      dataSource={list}
+                    />
+                  </IceFormBinder>
+                </Col>
+              </Row>
+
 
               <Row style={styles.formItem}>
                 <Col xxs="6" s="2" l="2" style={styles.formLabel}>
@@ -177,18 +209,15 @@ export default class CreateActivityForm extends Component {
                 <Col xxs="6" s="2" l="2" style={styles.formLabel}>
                   随机数值：
                 </Col>
-                <Col s="12" l="10">
+                <Col xxs="6" s="2" l="2">
                   <IceFormBinder name="isRandom">
                     <SwitchForForm />
                   </IceFormBinder>
                 </Col>
-              </Row>
-
-              <Row style={styles.formItem}>
                 <Col xxs="6" s="2" l="2" style={styles.formLabel}>
                   扩展数组：
                 </Col>
-                <Col s="12" l="10">
+                <Col xxs="6" s="2" l="2">
                   <IceFormBinder name="isExtend">
                     <SwitchForForm />
                   </IceFormBinder>
@@ -206,28 +235,7 @@ export default class CreateActivityForm extends Component {
                 </Col>
               </Row>
 
-              {/* <Row style={styles.formItem}>
-                <Col xxs="6" s="2" l="2" style={styles.formLabel}>
-                  活动性质：
-                </Col>
-                <Col s="12" l="10">
-                  <IceFormBinder name="type" type="array">
-                    <CheckboxGroup
-                      className="next-form-text-align"
-                      dataSource={[
-                        { label: '美食线上活动', value: '美食线上活动' },
-                        { label: '地推活动', value: '地推活动' },
-                        { label: '线下主题活动', value: '线下主题活动' },
-                        { label: '单纯品牌曝光', value: '单纯品牌曝光' },
-                      ]}
-                    />
-                  </IceFormBinder>
-                  <div>
-                    <IceFormError name="type" />
-                  </div>
-                </Col>
-              </Row> */}
-
+              
               {/* <Row style={styles.formItem}>
                 <Col xxs="6" s="2" l="2" style={styles.formLabel}>
                   特殊资源：

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Table, Button,Switch,Feedback } from '@icedesign/base';
+import { Table, Button,Switch,Feedback,Checkbox } from '@icedesign/base';
 import DataBinder from '@icedesign/data-binder';
 import CellEditor from './CellEditor';
+import SimpleFormDialog from '../SimpleFormDialog';
 import './EditableTable.scss';
 
+const CheckboxGroup = Checkbox.Group;
 const generatorData = () => {
   return Array.from({ length: 5 }).map((item, index) => {
     return {
@@ -18,7 +20,7 @@ const generatorData = () => {
 @DataBinder({
   'apilist': {
     url: '/api/apilist',
-    method: 'get',
+    method: 'post',
     data: { },
     defaultBindingData: {
       dataSource:[]
@@ -40,6 +42,14 @@ const generatorData = () => {
 
     }
   },
+  'getsys': {
+    url: '/api/getsys',
+    method: 'get',
+    data: { },
+    defaultBindingData: {
+        list:[]
+    }
+  }
 })
 export default class EditableTable extends Component {
   static displayName = 'EditableTable';
@@ -52,10 +62,21 @@ export default class EditableTable extends Component {
     super(props);
     this.state = {
       dataSource: generatorData(),
+      visible:false,
+      list:['uc']
     };
   }
   componentWillMount(){
-    this.props.updateBindingData('apilist')
+    this.update();
+    this.props.updateBindingData('getsys');
+  }
+  
+  update =()=>{
+    this.props.updateBindingData('apilist',{
+      data:{
+        syscode:this.state.list
+      }
+    })
   }
 
   renderOrder = (value, index) => {
@@ -66,20 +87,31 @@ export default class EditableTable extends Component {
     this.props.updateBindingData('delete',{data:order},(res)=>{
       if(res.errorCode==0){
         Feedback.toast.success('删除成功!');
-        this.props.updateBindingData('apilist');
+        this.update();
       }else{
         Feedback.toast.error(res.errorDetail);
       }
     })
   };
 
+  onOpen =()=>{
+    this.setState({
+      visible:true,
+    })
+  }
+
   renderOperation = (value, index,order) => {
     return (
       <div>
-        <Button shape="ghost" style={{marginRight:'10px'}}>
+        {/* <Button shape="text" onClick={this.onOpen} style={{marginRight:'10px'}} >
+          更改示例
+        </Button> */}
+        <SimpleFormDialog row={order} update={this.update}/>
+
+        <Button shape="text" style={{marginRight:'10px'}}>
           测试接口
         </Button>
-        <Button onClick={this.deleteItem.bind(this, order)} shape="ghost">
+        <Button onClick={this.deleteItem.bind(this, order)} shape="text">
           删除
         </Button>
       </div>
@@ -100,12 +132,24 @@ export default class EditableTable extends Component {
     this.props.updateBindingData('update',{data:item},(res)=>{
       if(res.errorCode==0){
         Feedback.toast.success('更新成功!');
-        this.props.updateBindingData('apilist');
+        this.update();
       }else{
         Feedback.toast.error(res.errorDetail);
       }
     })
   };
+
+  changeResult =()=>{
+    //todo  弹窗修改
+  }
+
+
+  changeCheck=(list)=>{
+    console.log('list',list)
+    this.setState({
+      list,
+    },()=>{this.update()});
+  }
 
   renderEditor = (valueKey, value, index, record) => {
 
@@ -117,13 +161,22 @@ export default class EditableTable extends Component {
           onChange={this.changeDataSource.bind(this,record,index,valueKey,!value)}
         />
       );
+    }else if(valueKey!=='result'){
+      return (
+        <CellEditor
+          valueKey={valueKey}
+          index={index}
+          value={record[valueKey]||'无'}
+          onChange={this.changeDataSource.bind(this,record)}
+        />
+      );
     }else{
       return (
         <CellEditor
           valueKey={valueKey}
           index={index}
-          value={record[valueKey]}
-          onChange={this.changeDataSource.bind(this,record)}
+          value='edit'
+          onChange={this.changeResult.bind(this,record)}
         />
       );
     }
@@ -143,17 +196,33 @@ export default class EditableTable extends Component {
 
   render() {
     const  dataSource = this.props.bindingData.apilist.list;
+    const { list } =this.props.bindingData.getsys;
+
     // console.log('dataSource',dataSource)
     return (
       <div className="editable-table">
         <IceContainer>
+          <CheckboxGroup
+            className="next-form-text-align"
+            onChange={this.changeCheck}
+            dataSource={list}
+            value={this.state.list}
+          />
+        </IceContainer>
+        <IceContainer>
           <Table dataSource={dataSource} hasBorder={false}>
-            <Table.Column width={80} title="序号" dataIndex="id" cell={this.renderOrder} />
+            <Table.Column width={60} title="序号" dataIndex="id" cell={this.renderOrder} />
             <Table.Column
-              // width={280}
+              width={200}
               dataIndex="path"
               title="路径"
               cell={this.renderEditor.bind(this, 'path')}
+            />
+            <Table.Column
+              // width={240}
+              dataIndex="sysname"
+              title="所属系统"
+              // cell={this.renderEditor.bind(this, 'desc')}
             />
             <Table.Column
               // width={240}
@@ -179,10 +248,17 @@ export default class EditableTable extends Component {
               // width={180}
               align="center"
               dataIndex="nums"
-              title="扩展数组数量"
+              title="数组数量"
               cell={this.renderEditor.bind(this, 'nums')}
             />
-            <Table.Column title="操作" width={200} align="center" cell={this.renderOperation} />
+            {/* <Table.Column
+              // width={180}
+              align="center"
+              dataIndex="result"
+              title="数据示例"
+              cell={this.renderEditor.bind(this, 'result')}
+            /> */}
+            <Table.Column title="操作" width={150} align="center" cell={this.renderOperation} />
           </Table>
           {/* <div onClick={this.addNewItem} style={styles.addNewItem}>
             + 新增一行

@@ -19,7 +19,7 @@ export default class UserLayout extends Component {
               src={require('./images/TB13UQpnYGYBuNjy0FoXXciBFXa-242-134.png')}
               alt="logo"
             />
-            <span className="title">飞冰</span>
+            <span className="title">myweb</span>
           </a>
           <p className="desc">飞冰让前端开发简单而友好</p>
         </div>
