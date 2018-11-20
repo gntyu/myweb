@@ -151,6 +151,14 @@ export default class EditableTable extends Component {
     },()=>{this.update()});
   }
 
+  getTime=(time)=>{
+    // debugger;
+    const timestamp = new Date(time);
+    // console.log('timestamp',timestamp)
+    const res = timestamp.toLocaleDateString().replace(/\//g, "-") + " " + timestamp.toTimeString().substr(0, 8)
+    return res ;
+  }
+
   renderEditor = (valueKey, value, index, record) => {
 
     if(valueKey=='isRandom'||valueKey=='isExtend'){
@@ -222,6 +230,13 @@ export default class EditableTable extends Component {
               // width={240}
               dataIndex="sysname"
               title="所属系统"
+              // cell={this.renderEditor.bind(this, 'desc')}
+            />
+            <Table.Column
+              // width={240}
+              dataIndex="updateTime"
+              title="更新时间"
+              cell={this.getTime}
               // cell={this.renderEditor.bind(this, 'desc')}
             />
             <Table.Column

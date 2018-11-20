@@ -26,6 +26,14 @@ const defaultValue = {
 
     }
   },
+  'getsys': {
+    url: '/api/getsys',
+    method: 'get',
+    data: { },
+    defaultBindingData: {
+        list:[]
+    }
+  }
 })
 export default class SimpleFormDialog extends Component {
   static displayName = 'SimpleFormDialog';
@@ -34,13 +42,24 @@ export default class SimpleFormDialog extends Component {
     super(props);
     this.state = {
       visible: false,
-      value: {content : props.row.result},
+      value: {
+        content : props.row.result,
+        syscode:props.row.syscode,
+      },
       isMobile: false,
-      id: props.row.id
+      id: props.row.id,
+      list:[]
     };
   }
 
   componentDidMount() {
+    this.props.updateBindingData('getsys',{},(res)=>{
+      if(res&&res.data&&res.data.list){
+        this.setState({
+          list:res.data.list
+        })
+      }
+    });
     this.enquireScreenRegister();
   }
 
@@ -73,10 +92,17 @@ export default class SimpleFormDialog extends Component {
         return;
       }
       // deal with value
-      
+      let sysname ='';
+      this.state.list.map((item)=>{
+        if(item.value==this.state.value.syscode){
+          sysname=item.label
+        }
+      })
       this.props.updateBindingData('update',{
           data:{
             result:this.state.value.content,
+            syscode:this.state.value.syscode,
+            sysname,
             id:this.state.id
           }
         },(res)=>{
@@ -99,6 +125,7 @@ export default class SimpleFormDialog extends Component {
   };
 
   render() {
+    const { list } =this.props.bindingData.getsys;
     const { isMobile } = this.state;
     const simpleFormDialog = {
       ...styles.simpleFormDialog,
@@ -151,34 +178,21 @@ export default class SimpleFormDialog extends Component {
                   <IceFormError name="keywords" />
                 </Col>
               </Row> */}
-              {/* <Row style={styles.formRow}>
+              <Row style={styles.formRow}>
                 <Col>
-                  <IceFormBinder>
+                  <IceFormBinder name="syscode">
                     <RadioGroup
-                      name="type"
-                      dataSource={[
-                        {
-                          value: 'post',
-                          label: '文章',
-                        },
-                        {
-                          value: 'video',
-                          label: '视频',
-                        },
-                        {
-                          value: 'image',
-                          label: '图片',
-                        },
-                      ]}
+                      // name="syscode"
+                      dataSource={list}
                     />
                   </IceFormBinder>
                 </Col>
-              </Row> */}
+              </Row>
               <Row style={styles.formRow}>
                 <Col>
                   <IceFormBinder name="content">
                     <Input
-                      name="value"
+                      // name="value"
                       style={styles.input}
                       multiple
                       // placeholder="请输入详细内容"
