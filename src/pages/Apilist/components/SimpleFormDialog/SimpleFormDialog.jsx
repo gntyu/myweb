@@ -206,7 +206,7 @@ export default class SimpleFormDialog extends Component {
           </IceFormBinderWrapper>
         </Dialog>
         <Button type="primary" onClick={this.showDialog}>
-          更改数据示例
+          更改示例
         </Button>
       </div>
     );

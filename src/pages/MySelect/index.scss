@@ -1,0 +1,479 @@
+@charset "UTF-8";
+
+.lymulti-select {
+	box-sizing: border-box;
+	color: #333333;
+	font-family: Roboto, "Helvetica Neue", Helvetica, Tahoma, Arial, FZLanTingHeiS-L-G, "PingFang SC", "Microsoft YaHei";
+	font-size: 14px;
+	line-height: 1.28571;
+	display: inline-block;
+	border: 1px solid #E0E0E0;
+	cursor: pointer;
+	position: relative;
+	transition: ease all 0.3s 0.1s;
+	border-radius: 4px;
+	min-width: 100px;
+	color: #666666;
+	border-color: #DCDEE3;
+	background-color: #FFFFFF;
+}
+
+.lymulti-select *,
+.lymulti-select *:before,
+.lymulti-select *:after {
+    box-sizing: border-box;
+}
+
+.lymulti-select-placeholder {
+	color: #999999;
+}
+
+.lymulti-select .lymulti-select-arrow, .lymulti-select .lymulti-select-clear {
+	position: absolute;
+}
+
+.lymulti-select .lymulti-select-arrow {
+	color: #C4C6CF;
+}
+
+.lymulti-select .lymulti-select-clear {
+	display: none;
+	color: #ccc;
+	transition: color ease 0.3s;
+}
+
+.lymulti-select .lymulti-select-clear:hover {
+	color: #C4C6CF;
+}
+
+.lymulti-select-inner {
+    /* fix http://gitlab.alibaba-inc.com/next/select/issues/34*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+	width: 100%;
+}
+
+.lymulti-select:hover .lymulti-select-clear {
+	display: inline-block;
+}
+
+.lymulti-select.has-clear:hover .lymulti-select-arrow {
+	display: none;
+}
+
+.lymulti-select.multiple .lymulti-select-inner {
+	display: block;
+	white-space: normal;
+	width: auto;
+}
+
+.lymulti-select-inner-item {
+	margin-right: 4px;
+	background: #EEEFF3;
+	border-radius: 2px;
+	padding: 0 4px;
+	display: block;
+	float: left;
+	height: 20px;
+	line-height: 20px;
+	max-width: 100%;
+	padding-right: 16px;
+	position: relative;
+}
+
+.lymulti-select-inner-item-label {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.lymulti-select-inner-item a {
+	color: #C4C6CF;
+	position: absolute;
+	right: 4px;
+	top: 0;
+}
+
+.lymulti-select-search {
+	margin: 0 10px;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.lymulti-select-search .next-input {
+	width: 100%;
+	padding-right: 24px;
+}
+
+.lymulti-select-search .next-icon {
+	position: absolute;
+	top: 0px;
+	right: 5px;
+	color: #999;
+}
+
+.lymulti-select-menu {
+	max-height: 260px;
+	overflow: auto;
+}
+
+.lymulti-select-menu.has-search {
+	max-height: none;
+	overflow: visible;
+}
+
+.lymulti-select-menu.has-search .next-menu-content {
+	max-height: 260px;
+	overflow: hidden;
+}
+
+.lymulti-select-menu.has-search .next-menu-content.overflow-auto {
+	overflow: auto;
+}
+
+.lymulti-select .next-comobobox-arrow-wrapper {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	background: transparent;
+	border-left: 1px solid #DCDEE3;
+}
+
+.lymulti-select.disabled {
+	color: #E0E0E0;
+	border-color: #E0E0E0;
+	background-color: #FFFFFF;
+	cursor: not-allowed;
+}
+
+.lymulti-select.disabled:hover {
+	border-color: #E0E0E0;
+}
+
+.lymulti-select.disabled .lymulti-select-arrow {
+	color: #E0E0E0;
+}
+
+.lymulti-select.disabled .lymulti-select-inner-item .next-icon-close:before {
+	color: #E0E0E0;
+}
+
+.lymulti-select:hover {
+	border-color: #C4C6CF;
+}
+
+.lymulti-select:focus, .lymulti-select.focused, .lymulti-select.opened {
+	border-color: #C4C6CF;
+	outline: 0;
+}
+
+.lymulti-select:active {
+	border-color: #C4C6CF;
+}
+
+.lymulti-select.large {
+	height: 32px;
+	line-height: 30px;
+	padding-left: 8px;
+	padding-right: 25px;
+	font-size: 14px;
+	border-width: 1px;
+}
+
+.lymulti-select.large.no-arrow {
+	padding-right: 8px;
+}
+
+.lymulti-select.large .lymulti-select-arrow, .lymulti-select.large .lymulti-select-clear {
+	right: 6px;
+	top: 50%;
+	margin-top: -15px;
+}
+
+.lymulti-select.large .lymulti-select-arrow:before, .lymulti-select.large .lymulti-select-clear:before {
+	width: 12px;
+	font-size: 12px;
+	line-height: inherit;
+}
+
+.lymulti-select.large .next-comobobox-arrow-wrapper {
+	width: 25px;
+	border-radius: 0 4px 4px 0;
+}
+
+.lymulti-select.large .lymulti-select-inner-item {
+	height: 22px;
+	line-height: 22px;
+	margin-top: 4px;
+}
+
+.lymulti-select.large .lymulti-select-inner-item .next-icon-close {
+	margin-left: 2px;
+}
+
+.lymulti-select.large .lymulti-select-inner-item:last-child {
+	margin-bottom: 4px;
+}
+
+.lymulti-select.large.multiple {
+	padding-left: 4px;
+	height: auto;
+	min-height: 32px;
+	overflow: hidden;
+}
+
+.lymulti-select.large.next-comobobox .lymulti-select-clear {
+	position: absolute;
+	right: 29px;
+}
+
+.lymulti-select.medium {
+	height: 28px;
+	line-height: 26px;
+	padding-left: 8px;
+	padding-right: 25px;
+	font-size: 14px;
+	border-width: 1px;
+}
+
+.lymulti-select.medium.no-arrow {
+	padding-right: 8px;
+}
+
+.lymulti-select.medium .lymulti-select-arrow, .lymulti-select.medium .lymulti-select-clear {
+	right: 6px;
+	top: 50%;
+	margin-top: -13px;
+}
+
+.lymulti-select.medium .lymulti-select-arrow:before, .lymulti-select.medium .lymulti-select-clear:before {
+	width: 12px;
+	font-size: 12px;
+	line-height: inherit;
+}
+
+.lymulti-select.medium .next-comobobox-arrow-wrapper {
+	width: 25px;
+	border-radius: 0 4px 4px 0;
+}
+
+.lymulti-select.medium .lymulti-select-inner-item {
+	height: 18px;
+	line-height: 18px;
+	margin-top: 4px;
+}
+
+.lymulti-select.medium .lymulti-select-inner-item .next-icon-close {
+	margin-left: 2px;
+}
+
+.lymulti-select.medium .lymulti-select-inner-item:last-child {
+	margin-bottom: 4px;
+}
+
+.lymulti-select.medium.multiple {
+	padding-left: 4px;
+	// height: auto;
+	// min-height: 28px;
+	height: 28px;
+	overflow: hidden;
+}
+
+.lymulti-select.medium.next-comobobox .lymulti-select-clear {
+	position: absolute;
+	right: 29px;
+}
+
+.lymulti-select.small {
+	height: 24px;
+	line-height: 22px;
+	padding-left: 4px;
+	padding-right: 17px;
+	font-size: 12px;
+	border-width: 1px;
+}
+
+.lymulti-select.small.no-arrow {
+	padding-right: 4px;
+}
+
+.lymulti-select.small .lymulti-select-arrow, .lymulti-select.small .lymulti-select-clear {
+	right: 4px;
+	top: 50%;
+	margin-top: -11px;
+}
+
+.lymulti-select.small .lymulti-select-arrow:before, .lymulti-select.small .lymulti-select-clear:before {
+	width: 8px;
+	font-size: 8px;
+	line-height: inherit;
+}
+
+@media all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+	.lymulti-select.small .lymulti-select-arrow, .lymulti-select.small .lymulti-select-clear {
+		transform: scale(0.5);
+		margin-left: -4px;
+		margin-right: -4px;
+	}
+
+	.lymulti-select.small .lymulti-select-arrow:before, .lymulti-select.small .lymulti-select-clear:before {
+		width: 16px;
+		font-size: 16px;
+	}
+}
+
+.lymulti-select.small .next-comobobox-arrow-wrapper {
+	width: 17px;
+	border-radius: 0 4px 4px 0;
+}
+
+.lymulti-select.small .lymulti-select-inner-item {
+	height: 18px;
+	line-height: 18px;
+	margin-top: 2px;
+}
+
+.lymulti-select.small .lymulti-select-inner-item .next-icon-close {
+	margin-left: 2px;
+}
+
+.lymulti-select.small .lymulti-select-inner-item:last-child {
+	margin-bottom: 4px;
+}
+
+.lymulti-select.small.multiple {
+	padding-left: 4px;
+	height: auto;
+	min-height: 24px;
+	overflow: hidden;
+}
+
+.lymulti-select.small.next-comobobox .lymulti-select-clear {
+	position: absolute;
+	right: 21px;
+}
+
+.lymulti-select.no-border {
+	border-width: 0;
+}
+
+.lymulti-select.no-border:hover {
+	color: #0099ff;
+}
+
+.lymulti-select.no-border:hover .lymulti-select-arrow {
+	border-color: #0099ff;
+}
+
+.lymulti-select.no-border.disabled {
+	background: #FFFFFF;
+}
+
+.lymulti-select.no-border.disabled:hover {
+	color: #E0E0E0;
+}
+
+.lymulti-select.no-border.disabled:hover .lymulti-select-arrow {
+	border-color: #E0E0E0;
+}
+
+
+.lymulti-select {
+	.lymulti-select-arrow.next-icon, 
+    .lymulti-select-clear.next-icon {
+        right: 6px;
+	top: 50%;
+	margin-top: -13px;
+	color: #C4C6CF;
+	position: absolute;
+}
+}
+
+.next-overlay-backdrop {
+	background: #000000;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 1001;
+	transition: opacity 0.3s;
+	opacity: 0;
+}
+
+.opened .lymulti-overlay-backdrop {
+	opacity: 0.2;
+}
+
+.lymulti-overlay-wrapper .next-overlay-inner {
+	z-index: 1001;
+}
+
+.lymulti-tree-select {
+	box-sizing: border-box;
+	color: #333333;
+	font-family: Roboto, "Helvetica Neue", Helvetica, Tahoma, Arial, FZLanTingHeiS-L-G, "PingFang SC", "Microsoft YaHei";
+	font-size: 14px;
+	line-height: 1.28571;
+}
+
+.lymulti-tree-select *,
+.lymulti-tree-select *:before,
+.lymulti-tree-select *:after {
+	box-sizing: border-box;
+}
+
+.lymulti-tree-select-dropdown {
+	padding: 12px 0;
+	background: #FFFFFF;
+	border: 1px solid #E0E0E0;
+	border-radius: 0px;
+	box-shadow: 1px 1px 5px 0px rgba(102, 102, 102, 0.2);
+}
+
+.lymulti-tree-select-dropdown .next-select-search {
+	line-height: 28px;
+}
+
+.lymulti-tree-select-dropdown .next-tree {
+	padding: 0;
+	margin: 0 20px;
+	.next-tree-switcher-noline-close .next-tree-switcher-icon{
+        display: none;
+    }
+}
+
+.lymulti-tree-select-dropdown .next-tree {
+    .next-tree-switcher-noline {
+        display: none;
+    }
+    .next-tree-node li{
+        margin-left: 0;
+    }
+    .next-tree-switcher-noop-noline{
+        width:0;
+        margin:0;
+    }
+}
+.my-select-page {
+    .clearIcon {
+        position: relative;
+        left: -20px;
+        top: -8px;
+        color: #dad1d1;
+        cursor:pointer;
+    }
+    .clearIcon:hover{
+        color: #8d8d8d;
+    }
+}
+
+
+// .next-overlay-wrapper .next-overlay-inner.multi-select-tree-select-dropdown {
+// 	.next-tree-switcher-noline .next-tree-switcher-icon{
+//         display: none;
+//     }
+// }

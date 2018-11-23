@@ -107,16 +107,21 @@ export default class EditableTable extends Component {
           更改示例
         </Button> */}
         <SimpleFormDialog row={order} update={this.update}/>
-
-        <Button shape="text" style={{marginRight:'10px'}}>
-          测试接口
-        </Button>
-        <Button onClick={this.deleteItem.bind(this, order)} shape="text">
-          删除
-        </Button>
       </div>
     );
   };
+  renderDelete = (value, index,order) => {
+    return  (
+      <div>
+        {/* <Button shape="text" style={{marginRight:'10px'}}>
+          测试接口
+        </Button> */}
+          <Button onClick={this.deleteItem.bind(this, order)} shape="text">
+            删除
+          </Button>
+        </div>
+    )
+  }
 
   changeDataSource = (record,index, valueKey, value) => {
 
@@ -221,7 +226,7 @@ export default class EditableTable extends Component {
           <Table dataSource={dataSource} hasBorder={false}>
             <Table.Column width={60} title="序号" dataIndex="id" cell={this.renderOrder} />
             <Table.Column
-              width={200}
+              width={220}
               dataIndex="path"
               title="路径"
               cell={this.renderEditor.bind(this, 'path')}
@@ -230,29 +235,32 @@ export default class EditableTable extends Component {
               // width={240}
               dataIndex="sysname"
               title="所属系统"
+              width={100}
               // cell={this.renderEditor.bind(this, 'desc')}
             />
             <Table.Column
               // width={240}
               dataIndex="updateTime"
               title="更新时间"
+              width={220}
               cell={this.getTime}
               // cell={this.renderEditor.bind(this, 'desc')}
             />
             <Table.Column
               // width={240}
+              width={100}
               dataIndex="desc"
               title="接口描述"
               cell={this.renderEditor.bind(this, 'desc')}
             />
             <Table.Column
-              // width={180}
+              width={100}
               align="center"
               dataIndex="isRandom"
               title="随机数值"
               cell={this.renderEditor.bind(this, 'isRandom')}
             />
-            <Table.Column
+            {/* <Table.Column
               // width={180}
               align="center"
               dataIndex="isExtend"
@@ -265,7 +273,7 @@ export default class EditableTable extends Component {
               dataIndex="nums"
               title="数组数量"
               cell={this.renderEditor.bind(this, 'nums')}
-            />
+            /> */}
             {/* <Table.Column
               // width={180}
               align="center"
@@ -273,7 +281,8 @@ export default class EditableTable extends Component {
               title="数据示例"
               cell={this.renderEditor.bind(this, 'result')}
             /> */}
-            <Table.Column title="操作" width={150} align="center" cell={this.renderOperation} />
+            <Table.Column title="操作" width={120} align="center" cell={this.renderOperation} />
+            <Table.Column title="删除" width={80} align="center" cell={this.renderDelete} />
           </Table>
           {/* <div onClick={this.addNewItem} style={styles.addNewItem}>
             + 新增一行
