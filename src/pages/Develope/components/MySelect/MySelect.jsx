@@ -54,15 +54,15 @@ export default class MySelect extends Component {
           <TreeSelect
             treeDefaultExpandAll
             treeCheckable
-            autoWidth
+            autoWidth={this.props.autoWidth||false}
             showSearch={true}
-            dataSource={[
-              { 
+            dataSource={
+              newdata.length>0?[{ 
                 label: "全部", 
                 value: "all",
                 children:newdata
-              }
-            ]}
+              }]:[]
+            }
             onChange={this.onChange}
             style={this.props.style||{ width: 200 }}
             prefix="lymulti-"

@@ -456,7 +456,11 @@
     .next-tree-switcher-noop-noline{
         width:0;
         margin:0;
-    }
+	}
+	.next-tree-child-tree{
+		max-height: 200px;
+		overflow: auto;
+	}
 }
 .my-select-page {
     .clearIcon {
