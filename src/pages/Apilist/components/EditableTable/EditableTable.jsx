@@ -63,7 +63,7 @@ export default class EditableTable extends Component {
     this.state = {
       dataSource: generatorData(),
       visible:false,
-      list:['uc']
+      list:['uc','kpi','qita']
     };
   }
   componentWillMount(){

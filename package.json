@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "该模板适用于应用管理类的管理后台，默认内置一个 Dashboard 页面，使用时需要根据需求进行删除和添加",
   "dependencies": {
-    "@icedesign/base": "^0.2.0",
+    "@icedesign/base": "^0.2.5",
+    "@icedesign/card": "^0.1.2",
     "@icedesign/container": "^0.1.0",
     "@icedesign/data-binder": "^0.1.8",
     "@icedesign/form-binder": "^0.1.16",
@@ -16,7 +17,7 @@
     "enquire-js": "^0.2.1",
     "foundation-symbol": "^0.1.4",
     "ml-regression": "^4.4.2",
-    "prop-types": "^15.5.8",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.2.2"

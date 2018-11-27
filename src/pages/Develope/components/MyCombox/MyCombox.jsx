@@ -1,109 +1,75 @@
 import React, { Component } from 'react';
 import { TreeSelect,Icon,Select} from '@icedesign/base';
+import DataBinder from '@icedesign/data-binder';
 import './index.scss';
 
 const { Combobox } = Select;
+const onChange = function(...args) {
+  console.log(args);
+};
 
+@DataBinder({
+  'testMuch': {
+    url: '/api-portal/testMuch',
+    method: 'post',
+    data: { },
+    defaultBindingData: {
+      dataSource:[]
+    }
+  }
+})
 export default class MyCombox extends Component {
   static displayName = 'MyCombox';
 
   constructor(props) {
     super(props);
     this.state = {
-      value:[],
-      // all:'全选'
+      dataSource: [],
     };
   }
 
-  onChange =(value)=>{
-    console.log('-value-',value)
+  componentWillMount(){
+    this.update();
+  }
+  
+  update =(key)=>{
+    this.props.updateBindingData('testMuch',{
+      data:{
+        text:key?key:''
+      }
+    },(res)=>{
+      if(res&&res.data){
+        this.isConneting=false;
+        console.log('res.data',res.data)
+        this.setState({
+          dataSource:res.data
+        });
+      }
+    })
+  }
 
-    const isAll = value.includes('all');
-    if(isAll){
-      // this.setState({
-      //   value:this.data
-      // });
+  isConneting = false;
+
+  onInputUpdate(value) {
+    if(!this.isConneting){
+      this.isConneting=true;
+      this.update(value); 
     }else{
-      this.setState({
-        value
-      });
-    }
-
-
-    if(this.props.onChange){
-      if(isAll){
-        this.props.onChange(this.data);
-      }else{
-        this.props.onChange(value);
-      }
-
+      console.log('........')
     }
   }
-
-  clear =()=>{
-    this.setState({
-      value:[]
-    });
-    if(this.props.onChange){
-      this.props.onChange([]);
-    }
-  }
-
-  data=[];
-
   render() {
-    this.data = this.props.dataSource?this.props.dataSource:treeData;
-    const newdata=this.data.map((item)=>{
-      if(typeof(item)!="object"){
-        return {
-          value:item,
-          label:item,
-        }
-      }
-      return item;
-    });
     return (
-      <div className="my-combobox-page">
-          <Combobox 
-          multiple
-          autoWidth
+      <div className="demo-ctl">
+        <Combobox
+          onInputUpdate={this.onInputUpdate.bind(this)}
+          filterLocal={false}
           fillProps="label"
-          onChange={this.onChange}
-          value={this.props.value?this.props.value:this.state.value}
-          style={this.props.style||{ width: 200 }}
-          prefix="lycombox-"
-          dataSource={[
-            { 
-              label:'全部', 
-              value: "all"
-            },...newdata
-          ]}
-          />
-          <Icon type="close" size="xs" className="clearIcon" onClick={this.clear}/>
+          placeholder="请输入商品"
+          onChange={onChange}
+          dataSource={this.state.dataSource}
+        />
       </div>
     );
   }
 }
-
-const treeData = [
-      {
-        label: "示例1",
-        value: "1"
-      },
-      {
-        label: "示例2",
-        value: "2"
-      },
-      {
-        label: "示例3",
-        value: "3"
-      },
-      {
-        label: "示例4",
-        value: "4",
-      },
-      {
-        label: "示例5",
-        value: "5"
-      }
-    ]

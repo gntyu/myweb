@@ -55,7 +55,7 @@ export default class MySelect extends Component {
             treeDefaultExpandAll
             treeCheckable
             autoWidth={this.props.autoWidth||false}
-            showSearch={true}
+            showSearch={newdata.length>0?true:false}
             dataSource={
               newdata.length>0?[{ 
                 label: "全部", 
