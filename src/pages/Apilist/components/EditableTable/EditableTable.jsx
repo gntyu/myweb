@@ -166,7 +166,7 @@ export default class EditableTable extends Component {
 
   renderEditor = (valueKey, value, index, record) => {
 
-    if(valueKey=='isRandom'||valueKey=='isExtend'){
+    if(valueKey=='isRandom'||valueKey=='isExtend'||valueKey=='isStrict'){
       // console.log('===value:',value)
       return (
         <Switch
@@ -224,12 +224,19 @@ export default class EditableTable extends Component {
         </IceContainer>
         <IceContainer>
           <Table dataSource={dataSource} hasBorder={false}>
-            <Table.Column width={60} title="序号" dataIndex="id" cell={this.renderOrder} />
+            <Table.Column width={60} title="序号" dataIndex="id" cell={this.renderOrder} lock />
             <Table.Column
-              width={220}
+              lock
+              width={150}
               dataIndex="path"
               title="路径"
               cell={this.renderEditor.bind(this, 'path')}
+            />
+            <Table.Column
+              width={80}
+              dataIndex="method"
+              title="方式"
+              cell={this.renderEditor.bind(this, 'method')}
             />
             <Table.Column
               // width={240}
@@ -256,10 +263,17 @@ export default class EditableTable extends Component {
             <Table.Column
               width={100}
               align="center"
+              dataIndex="isStrict"
+              title="严格模式"
+              cell={this.renderEditor.bind(this, 'isStrict')}
+            />
+            {/* <Table.Column
+              width={100}
+              align="center"
               dataIndex="isRandom"
               title="随机数值"
               cell={this.renderEditor.bind(this, 'isRandom')}
-            />
+            /> */}
             {/* <Table.Column
               // width={180}
               align="center"

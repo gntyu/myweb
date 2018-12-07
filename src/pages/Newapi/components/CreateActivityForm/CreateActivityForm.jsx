@@ -65,15 +65,20 @@ export default class CreateActivityForm extends Component {
 
   constructor(props) {
     super(props);
+    this.init={
+      path: '',
+      desc: '',
+      result: '',
+      nums: 0,
+      isRandom:false,
+      isStrict:false,
+      method:'POST',
+      isExtend: false,
+      syscode:'uc',
+    }
     this.state = {
       value: {
-        path: '',
-        desc: '',
-        result: '',
-        nums: 0,
-        isRandom:false,
-        isExtend: false,
-        syscode:'uc',
+        ...this.init,
       },
       // defaultValue:'',
     };
@@ -84,6 +89,7 @@ export default class CreateActivityForm extends Component {
   }
 
   onFormChange = (value) => {
+    // console.log('value',value)
     this.setState({
       value,
     });
@@ -92,13 +98,7 @@ export default class CreateActivityForm extends Component {
   reset = () => {
     this.setState({
       value: {
-        path: '',
-        desc: '',
-        result: '',
-        nums: 0,
-        isRandom:false,
-        isExtend: false,
-        syscode:'uc',
+        ...this.init,
       },
     });
   };
@@ -207,6 +207,15 @@ export default class CreateActivityForm extends Component {
 
               <Row style={styles.formItem}>
                 <Col xxs="6" s="2" l="2" style={styles.formLabel}>
+                  严格模式：
+                </Col>
+                <Col xxs="6" s="2" l="2">
+                  <IceFormBinder name="isStrict">
+                    <SwitchForForm />
+                  </IceFormBinder>
+                </Col>
+
+                <Col xxs="6" s="2" l="2" style={styles.formLabel}>
                   随机数值：
                 </Col>
                 <Col xxs="6" s="2" l="2">
@@ -214,6 +223,7 @@ export default class CreateActivityForm extends Component {
                     <SwitchForForm />
                   </IceFormBinder>
                 </Col>
+
                 <Col xxs="6" s="2" l="2" style={styles.formLabel}>
                   扩展数组：
                 </Col>
@@ -222,7 +232,25 @@ export default class CreateActivityForm extends Component {
                     <SwitchForForm />
                   </IceFormBinder>
                 </Col>
+
               </Row>
+
+             
+              
+            {this.state.value.isStrict&&(
+              <Row style={styles.formItem}>
+                <Col xxs="6" s="2" l="2" style={styles.formLabel}>
+                  请求方式：
+                </Col>
+                <Col s="12" l="10">
+                  <IceFormBinder name="method">
+                    <RadioGroup
+                      className="next-form-text-align"
+                      dataSource={['POST','GET','DELETE']}
+                    />
+                  </IceFormBinder>
+                </Col>
+              </Row>)}
 
               <Row style={styles.formItem}>
                 <Col xxs="6" s="2" l="2" style={styles.formLabel}>
@@ -234,24 +262,6 @@ export default class CreateActivityForm extends Component {
                   </IceFormBinder>
                 </Col>
               </Row>
-
-              
-              {/* <Row style={styles.formItem}>
-                <Col xxs="6" s="2" l="2" style={styles.formLabel}>
-                  特殊资源：
-                </Col>
-                <Col s="12" l="10">
-                  <IceFormBinder name="resource">
-                    <RadioGroup
-                      className="next-form-text-align"
-                      dataSource={[
-                        { label: '线上品牌商赞助', value: '线上品牌商赞助' },
-                        { label: '线下场地免费', value: '线下场地免费' },
-                      ]}
-                    />
-                  </IceFormBinder>
-                </Col>
-              </Row> */}
 
               <Row>
                 <Col xxs="6" s="2" l="2" style={styles.formLabel}>

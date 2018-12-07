@@ -45,8 +45,10 @@ export default class SimpleFormDialog extends Component {
       value: {
         content : props.row.result,
         syscode:props.row.syscode,
+        method:props.row.method,
       },
       isMobile: false,
+      isStrict:props.row.isStrict,
       id: props.row.id,
       list:[]
     };
@@ -102,6 +104,7 @@ export default class SimpleFormDialog extends Component {
           data:{
             result:this.state.value.content,
             syscode:this.state.value.syscode,
+            method:this.state.isStrict?this.state.value.method:'',
             sysname,
             id:this.state.id
           }
@@ -158,36 +161,27 @@ export default class SimpleFormDialog extends Component {
             onChange={this.onFormChange}
           >
             <div style={styles.dialogContent}>
-              {/* <Row style={styles.formRow}>
-                <Col span={`${isMobile ? '6' : '3'}`}>
-                  <label style={styles.formLabel}>关键词</label>
-                </Col>
-                <Col span={`${isMobile ? '18' : '16'}`}>
-                  <IceFormBinder
-                    required
-                    min={2}
-                    max={10}
-                    message="当前字段必填，且最少 2 个字最多 10 个字"
-                  >
-                    <Input
-                      name="keywords"
-                      style={styles.input}
-                      placeholder="多关键词用英文 , 号分割"
-                    />
-                  </IceFormBinder>
-                  <IceFormError name="keywords" />
-                </Col>
-              </Row> */}
               <Row style={styles.formRow}>
                 <Col>
                   <IceFormBinder name="syscode">
                     <RadioGroup
-                      // name="syscode"
                       dataSource={list}
                     />
                   </IceFormBinder>
                 </Col>
               </Row>
+
+              {this.state.isStrict&&(
+              <Row style={styles.formRow}>
+                <Col>
+                  <IceFormBinder name="method">
+                    <RadioGroup
+                      dataSource={['POST','GET','DELETE']}
+                    />
+                  </IceFormBinder>
+                </Col>
+              </Row>)}
+
               <Row style={styles.formRow}>
                 <Col>
                   <IceFormBinder name="content">
