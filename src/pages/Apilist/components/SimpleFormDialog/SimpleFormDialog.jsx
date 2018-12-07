@@ -171,7 +171,7 @@ export default class SimpleFormDialog extends Component {
                 </Col>
               </Row>
 
-              {this.state.isStrict&&(
+              {(this.state.isStrict==1?true:false)&&(
               <Row style={styles.formRow}>
                 <Col>
                   <IceFormBinder name="method">
