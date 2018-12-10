@@ -125,7 +125,10 @@ export default class EditableTable extends Component {
 
   changeDataSource = (record,index, valueKey, value) => {
 
+    // console.log('-----index------',index);
+    // console.log('-----valueKey------',valueKey);
     // console.log('-----value------',value);
+    // const item =JSON.parse(JSON.stringify(record));
     const item ={};
     if(valueKey=='isRandom'||valueKey=='isExtend'){
       item[valueKey]=value?1:0;
@@ -133,6 +136,7 @@ export default class EditableTable extends Component {
       item[valueKey]=value;
     }
     item['id']=record.id;
+    if(valueKey!='path')item['path']=record.path;//如果不更改path ,需要拿path进行判断
 
     this.props.updateBindingData('update',{data:item},(res)=>{
       if(res.errorCode==0){
@@ -236,7 +240,7 @@ export default class EditableTable extends Component {
               width={80}
               dataIndex="method"
               title="方式"
-              cell={this.renderEditor.bind(this, 'method')}
+              // cell={this.renderEditor.bind(this, 'method')}
             />
             <Table.Column
               // width={240}
