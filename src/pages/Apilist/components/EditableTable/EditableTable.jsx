@@ -100,22 +100,18 @@ export default class EditableTable extends Component {
     })
   }
 
-  renderOperation = (value, index,order) => {
+  renderOperation = (data,value, index,order) => {
+    // console.log('data',data)
     return (
       <div>
-        {/* <Button shape="text" onClick={this.onOpen} style={{marginRight:'10px'}} >
-          更改示例
-        </Button> */}
-        <SimpleFormDialog row={order} update={this.update}/>
+        <SimpleFormDialog row={this.props.bindingData.apilist.list[index]} update={this.update} sys={this.props.bindingData.getsys.list} />
       </div>
     );
   };
+
   renderDelete = (value, index,order) => {
     return  (
       <div>
-        {/* <Button shape="text" style={{marginRight:'10px'}}>
-          测试接口
-        </Button> */}
           <Button onClick={this.deleteItem.bind(this, order)} shape="text">
             删除
           </Button>
@@ -124,13 +120,12 @@ export default class EditableTable extends Component {
   }
 
   changeDataSource = (record,index, valueKey, value) => {
-
     // console.log('-----index------',index);
     // console.log('-----valueKey------',valueKey);
     // console.log('-----value------',value);
     // const item =JSON.parse(JSON.stringify(record));
     const item ={};
-    if(valueKey=='isRandom'||valueKey=='isExtend'){
+    if(valueKey=='isRandom'||valueKey=='isExtend'||valueKey=='isStrict'){
       item[valueKey]=value?1:0;
     }else{
       item[valueKey]=value;
@@ -175,6 +170,8 @@ export default class EditableTable extends Component {
       return (
         <Switch
           defaultChecked={value==1?true:false}
+          checkedChildren='开'
+          unCheckedChildren='关'
           onChange={this.changeDataSource.bind(this,record,index,valueKey,!value)}
         />
       );
@@ -200,17 +197,6 @@ export default class EditableTable extends Component {
     
   };
 
-  addNewItem = () => {
-    this.state.dataSource.push({
-      todo: '暂无',
-      memo: '暂无',
-      validity: '暂无',
-    });
-    this.setState({
-      dataSource: this.state.dataSource,
-    });
-  };
-
   render() {
     const  dataSource = this.props.bindingData.apilist.list;
     const { list } =this.props.bindingData.getsys;
@@ -227,7 +213,7 @@ export default class EditableTable extends Component {
           />
         </IceContainer>
         <IceContainer>
-          <Table dataSource={dataSource} hasBorder={false}>
+          <Table dataSource={dataSource} hasBorder={false} >
             <Table.Column width={60} title="序号" dataIndex="id" cell={this.renderOrder} lock />
             <Table.Column
               lock
@@ -299,7 +285,7 @@ export default class EditableTable extends Component {
               title="数据示例"
               cell={this.renderEditor.bind(this, 'result')}
             /> */}
-            <Table.Column title="操作" width={120} align="center" cell={this.renderOperation} />
+            <Table.Column title="操作" width={120} align="center" cell={this.renderOperation.bind(this,dataSource)} />
             <Table.Column title="删除" width={80} align="center" cell={this.renderDelete} />
           </Table>
           {/* <div onClick={this.addNewItem} style={styles.addNewItem}>

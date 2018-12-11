@@ -26,14 +26,14 @@ const defaultValue = {
 
     }
   },
-  'getsys': {
-    url: '/api/getsys',
-    method: 'get',
-    data: { },
-    defaultBindingData: {
-        list:[]
-    }
-  }
+  // 'getsys': {
+  //   url: '/api/getsys',
+  //   method: 'get',
+  //   data: { },
+  //   defaultBindingData: {
+  //       list:[]
+  //   }
+  // }
 })
 export default class SimpleFormDialog extends Component {
   static displayName = 'SimpleFormDialog';
@@ -54,14 +54,20 @@ export default class SimpleFormDialog extends Component {
     };
   }
 
+  componentWillReceiveProps(nextprops){
+    this.setState({
+      isStrict:nextprops.row.isStrict,
+    })
+  }
+
   componentDidMount() {
-    this.props.updateBindingData('getsys',{},(res)=>{
-      if(res&&res.data&&res.data.list){
-        this.setState({
-          list:res.data.list
-        })
-      }
-    });
+    // this.props.updateBindingData('getsys',{},(res)=>{
+    //   if(res&&res.data&&res.data.list){
+    //     this.setState({
+    //       list:res.data.list
+    //     })
+    //   }
+    // });
     this.enquireScreenRegister();
   }
 
@@ -95,13 +101,14 @@ export default class SimpleFormDialog extends Component {
       }
       // deal with value
       let sysname ='';
-      this.state.list.map((item)=>{
+      this.props.sys.map((item)=>{
         if(item.value==this.state.value.syscode){
           sysname=item.label
         }
       })
       this.props.updateBindingData('update',{
           data:{
+            path:this.props.row.path,
             result:this.state.value.content,
             syscode:this.state.value.syscode,
             method:this.state.isStrict?this.state.value.method:'',
@@ -128,7 +135,7 @@ export default class SimpleFormDialog extends Component {
   };
 
   render() {
-    const { list } =this.props.bindingData.getsys;
+    const  list  =this.props.sys;
     const { isMobile } = this.state;
     const simpleFormDialog = {
       ...styles.simpleFormDialog,
@@ -171,16 +178,16 @@ export default class SimpleFormDialog extends Component {
                 </Col>
               </Row>
 
-              {(this.state.isStrict==1?true:false)&&(
+            
               <Row style={styles.formRow}>
                 <Col>
-                  <IceFormBinder name="method">
+                {(this.state.isStrict==1?true:false)&&( <IceFormBinder name="method">
                     <RadioGroup
                       dataSource={['POST','GET','DELETE']}
                     />
-                  </IceFormBinder>
+                  </IceFormBinder>)}
                 </Col>
-              </Row>)}
+              </Row>
 
               <Row style={styles.formRow}>
                 <Col>
