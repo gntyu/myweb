@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Table, Button,Switch,Feedback,Checkbox } from '@icedesign/base';
+import { Table, Button,Switch,Feedback,Checkbox,Input } from '@icedesign/base';
 import DataBinder from '@icedesign/data-binder';
 import CellEditor from './CellEditor';
 import SimpleFormDialog from '../SimpleFormDialog';
@@ -63,7 +63,9 @@ export default class EditableTable extends Component {
     this.state = {
       dataSource: generatorData(),
       visible:false,
-      list:['uc','kpi','qita']
+      list:['uc','kpi','qita'],
+      path:'',
+      filterData:[],
     };
   }
   componentWillMount(){
@@ -120,10 +122,6 @@ export default class EditableTable extends Component {
   }
 
   changeDataSource = (record,index, valueKey, value) => {
-    // console.log('-----index------',index);
-    // console.log('-----valueKey------',valueKey);
-    // console.log('-----value------',value);
-    // const item =JSON.parse(JSON.stringify(record));
     const item ={};
     if(valueKey=='isRandom'||valueKey=='isExtend'||valueKey=='isStrict'){
       item[valueKey]=value?1:0;
@@ -143,8 +141,13 @@ export default class EditableTable extends Component {
     })
   };
 
-  changeResult =()=>{
-    //todo  弹窗修改
+  change =(path)=>{
+    path =path.replace(/[^a-zA-Z0-9]/g,"");
+    const filterData=this.props.bindingData.apilist.list.filter(item=>item.path.indexOf(path)>-1);
+    this.setState({
+      path,
+      filterData
+    }); 
   }
 
 
@@ -198,7 +201,8 @@ export default class EditableTable extends Component {
   };
 
   render() {
-    const  dataSource = this.props.bindingData.apilist.list;
+    const  dataSource =this.state.path!=''?this.state.filterData:this.props.bindingData.apilist.list;
+    // const filter = this.state.filterData;
     const { list } =this.props.bindingData.getsys;
 
     // console.log('dataSource',dataSource)
@@ -211,6 +215,7 @@ export default class EditableTable extends Component {
             dataSource={list}
             value={this.state.list}
           />
+          <span style={{marginLeft:'30px'}}>筛选路径啊：<Input value={this.state.path} onChange={this.change} /></span>
         </IceContainer>
         <IceContainer>
           <Table dataSource={dataSource} hasBorder={false} >
