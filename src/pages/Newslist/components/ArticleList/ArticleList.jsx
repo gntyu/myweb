@@ -20,7 +20,7 @@ const generatorData = () => {
 
 @DataBinder({
   'getlist': {
-    url: '/api/getlist',
+    url: '/lyapi/getlist',
     method: 'get',
     data: { },
     defaultBindingData: {

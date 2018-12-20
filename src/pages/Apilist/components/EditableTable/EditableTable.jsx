@@ -19,7 +19,7 @@ const generatorData = () => {
 
 @DataBinder({
   'apilist': {
-    url: '/api/apilist',
+    url: '/lyapi/apilist',
     method: 'post',
     data: { },
     defaultBindingData: {
@@ -27,7 +27,7 @@ const generatorData = () => {
     }
   },
   'delete': {
-    url: '/api/deleteapi',
+    url: '/lyapi/deleteapi',
     method: 'post',
     data: { },
     defaultBindingData: {
@@ -35,7 +35,7 @@ const generatorData = () => {
     }
   },
   'update': {
-    url: '/api/updateapi',
+    url: '/lyapi/updateapi',
     method: 'post',
     data: { },
     defaultBindingData: {
@@ -43,7 +43,7 @@ const generatorData = () => {
     }
   },
   'getsys': {
-    url: '/api/getsys',
+    url: '/lyapi/getsys',
     method: 'get',
     data: { },
     defaultBindingData: {

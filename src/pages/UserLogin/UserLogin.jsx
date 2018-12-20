@@ -14,7 +14,7 @@ import IceIcon from '@icedesign/icon';
 const { Row, Col } = Grid;
 @DataBinder({
   'login': {
-    url: '/api/login',
+    url: '/lyapi/login',
     method: 'post',
     data: { },
     defaultBindingData: {

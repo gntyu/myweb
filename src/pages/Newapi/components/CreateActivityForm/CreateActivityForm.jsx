@@ -42,7 +42,7 @@ const SwitchForForm = (props) => {
 
 @DataBinder({
   'addapi': {
-    url: '/api/addapi',
+    url: '/lyapi/addapi',
     method: 'post',
     data: { },
     defaultBindingData: {
@@ -50,7 +50,7 @@ const SwitchForForm = (props) => {
     }
   },
   'getsys': {
-    url: '/api/getsys',
+    url: '/lyapi/getsys',
     method: 'get',
     data: { },
     defaultBindingData: {

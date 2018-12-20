@@ -16,7 +16,7 @@ const { Row, Col } = Grid;
 
 @DataBinder({
   'register': {
-    url: '/api/register',
+    url: '/lyapi/register',
     method: 'post',
     data: { },
     defaultBindingData: {

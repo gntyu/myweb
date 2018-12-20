@@ -19,7 +19,7 @@ const defaultValue = {
 };
 @DataBinder({
   'update': {
-    url: '/api/updateapi',
+    url: '/lyapi/updateapi',
     method: 'post',
     data: { },
     defaultBindingData: {
@@ -27,7 +27,7 @@ const defaultValue = {
     }
   },
   // 'getsys': {
-  //   url: '/api/getsys',
+  //   url: '/lyapi/getsys',
   //   method: 'get',
   //   data: { },
   //   defaultBindingData: {
