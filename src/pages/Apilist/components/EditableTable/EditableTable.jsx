@@ -67,24 +67,14 @@ export default class EditableTable extends Component {
       path:'',
       order:'',
       filterData:[],
+      current:{},
     };
   }
   componentWillMount(){
     this.update();
     this.props.updateBindingData('getsys');
   }
-  
-  update =()=>{
-    this.props.updateBindingData('apilist',{
-      data:{
-        syscode:this.state.list
-      }
-    })
-  }
-
-  renderOrder = (value, index) => {
-    return <span>{index+1}</span>;
-  };
+ 
 
   deleteItem = (order) => {
     this.props.updateBindingData('delete',{data:order},(res)=>{
@@ -103,11 +93,18 @@ export default class EditableTable extends Component {
     })
   }
 
-  renderOperation = (data,value, index,order) => {
-    console.log('data',data)
+  showDialog = (data)=>{
+    debugger;
+    this.setState({
+      current:data,
+      showDialog:true
+    });
+  }
+
+  renderOperation = (data,value, index,record) => {
     return (
       <div>
-        <SimpleFormDialog row={this.props.bindingData.apilist.list[index]} update={this.update} sys={this.props.bindingData.getsys.list} />
+        <Button type="primary" onClick={this.showDialog.bind(this,record)}>更改示例 </Button>
       </div>
     );
   };
@@ -144,22 +141,43 @@ export default class EditableTable extends Component {
 
   change =(path)=>{
     path =path.replace(/[^a-zA-Z0-9\/\$]/g,"");
-    const filterData=this.props.bindingData.apilist.list.filter(item=>item.path.indexOf(path)>-1);
     this.setState({
-      path,
-      filterData
+      path
+    },()=>{
+      this.goFilter();
     }); 
   }
 
   changeOrder =(order)=>{
     order =order.replace(/[^0-9]/g,"");
-    const filterData=this.props.bindingData.apilist.list.filter(item=>item.order.toString().indexOf(order)>-1);
     this.setState({
       order,
-      filterData
+    },()=>{
+      this.goFilter();
     }); 
   }
 
+  goFilter =()=>{
+    const {order,path}=this.state;
+
+    const filterData=this.props.bindingData.apilist.list.filter(item=>{
+      return item.order.toString().indexOf(order)>-1&&item.path.indexOf(path)>-1
+    });
+
+    this.setState({
+      filterData
+    }); 
+  }
+ 
+  update =()=>{
+    this.props.updateBindingData('apilist',{
+      data:{
+        syscode:this.state.list
+      }
+    },()=>{
+      this.goFilter();
+    })
+  }
 
   changeCheck=(list)=>{
     console.log('list',list)
@@ -211,13 +229,20 @@ export default class EditableTable extends Component {
   };
 
   render() {
-    const  dataSource =(this.state.path!=''||this.state.order!='')?this.state.filterData:this.props.bindingData.apilist.list;
+    const  dataSource =this.state.filterData;
     // const filter = this.state.filterData;
     const { list } =this.props.bindingData.getsys;
 
     // console.log('dataSource',dataSource)
     return (
       <div className="editable-table">
+        <SimpleFormDialog 
+          showDialog={this.state.showDialog}
+          row={this.state.current} 
+          update={this.update} 
+          sys={this.props.bindingData.getsys.list} 
+          close={()=>{this.setState({showDialog:false})}}
+        />
         <IceContainer>
           <CheckboxGroup
             className="next-form-text-align"

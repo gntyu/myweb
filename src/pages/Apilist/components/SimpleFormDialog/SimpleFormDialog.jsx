@@ -40,8 +40,9 @@ export default class SimpleFormDialog extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      visible: false,
+      // visible: false,
       value: {
         content : props.row.result,
         syscode:props.row.syscode,
@@ -56,6 +57,12 @@ export default class SimpleFormDialog extends Component {
 
   componentWillReceiveProps(nextprops){
     this.setState({
+      value: {
+        content :nextprops.row.result,
+        syscode:nextprops.row.syscode,
+        method:nextprops.row.method,
+      },
+      id: nextprops.row.id,
       isStrict:nextprops.row.isStrict,
     })
   }
@@ -122,7 +129,7 @@ export default class SimpleFormDialog extends Component {
         }else{
           Feedback.toast.error(res.errorDetail);
         }
-        this.hideDialog();
+        this.props.close()
       })
 
     });
@@ -155,10 +162,10 @@ export default class SimpleFormDialog extends Component {
           title="数据示例编辑"
           // {...this.props}
           onOk={this.onOk}
-          onCancel={this.hideDialog}
-          onClose={this.hideDialog}
+          onCancel={this.props.close}
+          onClose={this.props.close}
           isFullScreen
-          visible={this.state.visible}
+          visible={this.props.showDialog}
         >
           <IceFormBinderWrapper
             ref={(ref) => {
@@ -206,9 +213,9 @@ export default class SimpleFormDialog extends Component {
             </div>
           </IceFormBinderWrapper>
         </Dialog>
-        <Button type="primary" onClick={this.showDialog}>
+        {/* <Button type="primary" onClick={this.showDialog}>
           更改示例
-        </Button>
+        </Button> */}
       </div>
     );
   }
