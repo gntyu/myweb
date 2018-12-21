@@ -5,15 +5,15 @@
 const headerMenuConfig = [
   {
     name: '首页',
-    path: '/',
+    path: '/apilist',
   },
   {
-    name: '应用管理',
-    path: '/',
+    name: '万条数据',
+    path: '/wan',
   },
   {
-    name: '资源管理',
-    path: '/',
+    name: '微博水球',
+    path: '/weibo',
   },
   {
     name: ' 业务支撑',

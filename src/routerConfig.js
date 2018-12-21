@@ -14,14 +14,21 @@ import Newapi from './pages/Newapi';
 import Develope from './pages/Develope';
 
 import Apilist from './pages/Apilist';
+import TestTable from './pages/TestTable';
+import Weibo from './pages/Weibo';
 import UserRegister from './pages/UserRegister';
 
 const routerConfig = [
-  // {
-  //   path: '/',
-  //   layout: BasicLayout,
-  //   component: Home,
-  // },
+  {
+    path: '/wan',
+    layout: BasicLayout,
+    component: TestTable,
+  },
+  {
+    path: '/weibo',
+    layout: BasicLayout,
+    component: Weibo,
+  },
   {
     path: '/home',
     layout: BasicLayout,

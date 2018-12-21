@@ -65,6 +65,7 @@ export default class EditableTable extends Component {
       visible:false,
       list:['uc','kpi','qita'],
       path:'',
+      order:'',
       filterData:[],
     };
   }
@@ -103,7 +104,7 @@ export default class EditableTable extends Component {
   }
 
   renderOperation = (data,value, index,order) => {
-    // console.log('data',data)
+    console.log('data',data)
     return (
       <div>
         <SimpleFormDialog row={this.props.bindingData.apilist.list[index]} update={this.update} sys={this.props.bindingData.getsys.list} />
@@ -142,10 +143,19 @@ export default class EditableTable extends Component {
   };
 
   change =(path)=>{
-    path =path.replace(/[^a-zA-Z0-9]/g,"");
+    path =path.replace(/[^a-zA-Z0-9\/\$]/g,"");
     const filterData=this.props.bindingData.apilist.list.filter(item=>item.path.indexOf(path)>-1);
     this.setState({
       path,
+      filterData
+    }); 
+  }
+
+  changeOrder =(order)=>{
+    order =order.replace(/[^0-9]/g,"");
+    const filterData=this.props.bindingData.apilist.list.filter(item=>item.order.toString().indexOf(order)>-1);
+    this.setState({
+      order,
       filterData
     }); 
   }
@@ -201,7 +211,7 @@ export default class EditableTable extends Component {
   };
 
   render() {
-    const  dataSource =this.state.path!=''?this.state.filterData:this.props.bindingData.apilist.list;
+    const  dataSource =(this.state.path!=''||this.state.order!='')?this.state.filterData:this.props.bindingData.apilist.list;
     // const filter = this.state.filterData;
     const { list } =this.props.bindingData.getsys;
 
@@ -215,11 +225,12 @@ export default class EditableTable extends Component {
             dataSource={list}
             value={this.state.list}
           />
-          <span style={{marginLeft:'30px'}}>筛选路径啊：<Input value={this.state.path} onChange={this.change} /></span>
+          <span style={{marginLeft:'30px'}}>路径：<Input value={this.state.path} onChange={this.change} /></span>
+          <span style={{marginLeft:'30px'}}>序号：<Input value={this.state.order} onChange={this.changeOrder} /></span>
         </IceContainer>
         <IceContainer>
-          <Table dataSource={dataSource} hasBorder={false} >
-            <Table.Column width={60} title="序号" dataIndex="id" cell={this.renderOrder} lock />
+          <Table dataSource={dataSource} hasBorder={false} primaryKey='order'>
+            <Table.Column width={60} title="序号" dataIndex="order"  lock />
             <Table.Column
               lock
               width={150}
