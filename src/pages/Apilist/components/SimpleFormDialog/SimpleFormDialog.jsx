@@ -106,6 +106,7 @@ export default class SimpleFormDialog extends Component {
         // show validate error
         return;
       }
+      this.props.close()
       // deal with value
       let sysname ='';
       this.props.sys.map((item)=>{
@@ -123,13 +124,12 @@ export default class SimpleFormDialog extends Component {
             id:this.state.id
           }
         },(res)=>{
-        if(res.errorCode==0){
-          Feedback.toast.success('更新成功!');
           this.props.update();
-        }else{
-          Feedback.toast.error(res.errorDetail);
-        }
-        this.props.close()
+          if(res.errorCode==0){
+            Feedback.toast.success('更新成功!');
+          }else{
+            Feedback.toast.error(res.errorDetail);
+          }
       })
 
     });

@@ -5,7 +5,7 @@
 const headerMenuConfig = [
   {
     name: '首页',
-    path: '/apilist',
+    path: '/system',
   },
   {
     name: '万条数据',

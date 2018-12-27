@@ -11,6 +11,7 @@ import UserForgetPassword from './pages/UserForgetPassword';
 import UserLogin from './pages/UserLogin';
 import Newslist from './pages/Newslist';
 import Newapi from './pages/Newapi';
+import System from './pages/System';
 import Develope from './pages/Develope';
 
 import Apilist from './pages/Apilist';
@@ -58,6 +59,11 @@ const routerConfig = [
     path: '/newapi',
     layout: BasicLayout,
     component: Newapi,
+  },
+  {
+    path: '/system',
+    layout: BasicLayout,
+    component: System,
   },
   {
     path: '/Develope',

@@ -3,7 +3,7 @@ import IceContainer from '@icedesign/container';
 import { Table,Pagination, Button,Switch,Feedback,Checkbox,Input } from '@icedesign/base';
 import DataBinder from '@icedesign/data-binder';
 import CellEditor from './CellEditor';
-import SimpleFormDialog from '../SimpleFormDialog';
+
 import './EditableTable.scss';
 
 const CheckboxGroup = Checkbox.Group;
@@ -18,8 +18,16 @@ const generatorData = () => {
 };
 
 @DataBinder({
-  'apilist': {
-    url: '/lyapi/apilist',
+  'system': {
+    url: '/lyapi/system',
+    method: 'post',
+    data: { },
+    defaultBindingData: {
+      dataSource:[]
+    }
+  },
+  'addsystem': {
+    url: '/lyapi/addsystem',
     method: 'post',
     data: { },
     defaultBindingData: {
@@ -27,7 +35,7 @@ const generatorData = () => {
     }
   },
   'delete': {
-    url: '/lyapi/deleteapi',
+    url: '/lyapi/deletesystem',
     method: 'post',
     data: { },
     defaultBindingData: {
@@ -35,21 +43,14 @@ const generatorData = () => {
     }
   },
   'update': {
-    url: '/lyapi/updateapi',
+    url: '/lyapi/updatesystem',
     method: 'post',
     data: { },
     defaultBindingData: {
 
     }
   },
-  'getsys': {
-    url: '/lyapi/getsys',
-    method: 'get',
-    data: { },
-    defaultBindingData: {
-        list:[]
-    }
-  }
+
 })
 export default class EditableTable extends Component {
   static displayName = 'EditableTable';
@@ -63,9 +64,9 @@ export default class EditableTable extends Component {
     this.state = {
       dataSource: generatorData(),
       visible:false,
-      list:['uc','kpi','qita'],
-      path:'',
-      order:'',
+
+      sysCode:'',
+      context:'',
       filterData:[],
       current:{},
       currentPage:1
@@ -73,12 +74,11 @@ export default class EditableTable extends Component {
   }
   componentWillMount(){
     this.update();
-    this.props.updateBindingData('getsys');
   }
  
 
-  deleteItem = (order) => {
-    this.props.updateBindingData('delete',{data:order},(res)=>{
+  deleteItem = (context) => {
+    this.props.updateBindingData('delete',{data:context},(res)=>{
       if(res.errorCode==0){
         Feedback.toast.success('删除成功!');
         this.update();
@@ -128,7 +128,7 @@ export default class EditableTable extends Component {
       item[valueKey]=value;
     }
     item['id']=record.id;
-    if(valueKey!='path')item['path']=record.path;//如果不更改path ,需要拿path进行判断
+    if(valueKey!='sysCode')item['sysCode']=record.sysCode;//如果不更改sysCode ,需要拿sysCode进行判断
 
     this.props.updateBindingData('update',{data:item},(res)=>{
       if(res.errorCode==0){
@@ -140,29 +140,28 @@ export default class EditableTable extends Component {
     })
   };
 
-  change =(path)=>{
-    path =path.replace(/[^a-zA-Z0-9\/\$]/g,"");
+  change =(sysCode)=>{
+    sysCode =sysCode.replace(/[^a-zA-Z0-9\/\$]/g,"");
     this.setState({
-      path
+      sysCode
     },()=>{
       this.goFilter();
     }); 
   }
 
-  changeOrder =(order)=>{
-    order =order.replace(/[^0-9]/g,"");
+  changecontext =(context)=>{
+    context =context.replace(/[^0-9]/g,"");
     this.setState({
-      order,
+      context,
     },()=>{
       this.goFilter();
     }); 
   }
 
   goFilter =()=>{
-    const {order,path}=this.state;
-
-    const filterData=this.props.bindingData.apilist.list.filter(item=>{
-      return item.order.toString().indexOf(order)>-1&&item.path.indexOf(path)>-1
+    const {context,sysCode}=this.state;
+    const filterData=this.props.bindingData.system.list.filter(item=>{
+      return item.context.indexOf(context)>-1&&item.sysCode.indexOf(sysCode)>-1
     });
 
     this.setState({
@@ -172,20 +171,13 @@ export default class EditableTable extends Component {
   }
  
   update =()=>{
-    this.props.updateBindingData('apilist',{
-      data:{
-        syscode:this.state.list
-      }
+    this.props.updateBindingData('system',{
+      // data:{
+      //   syscode:this.state.list
+      // }
     },()=>{
       this.goFilter();
     })
-  }
-
-  changeCheck=(list)=>{
-    console.log('list',list)
-    this.setState({
-      list,
-    },()=>{this.update()});
   }
 
   getTime=(time)=>{
@@ -201,6 +193,13 @@ export default class EditableTable extends Component {
     this.setState({
       currentPage:page
     });
+  }
+
+  addNewItem=()=>{
+    this.props.updateBindingData('addsystem',{},res=>{
+      this.update();
+    });
+    
   }
 
   renderEditor = (valueKey, value, index, record) => {
@@ -242,104 +241,49 @@ export default class EditableTable extends Component {
     const current =this.state.currentPage;
     const dataSource =this.state.filterData.slice((current-1)*10,(current-1)*10+9);
     // const filter = this.state.filterData;
-    const { list } =this.props.bindingData.getsys;
 
-    // console.log('dataSource',dataSource)
+    console.log('dataSource',dataSource)
     return (
       <div className="editable-table">
-        <SimpleFormDialog 
-          showDialog={this.state.showDialog}
-          row={this.state.current} 
-          update={this.update} 
-          sys={this.props.bindingData.getsys.list} 
-          close={()=>{this.setState({showDialog:false})}}
-        />
         <IceContainer>
-          <CheckboxGroup
-            className="next-form-text-align"
-            onChange={this.changeCheck}
-            dataSource={list}
-            value={this.state.list}
-          />
-          <span style={{marginLeft:'30px'}}>路径：<Input value={this.state.path} onChange={this.change} /></span>
-          <span style={{marginLeft:'30px'}}>序号：<Input value={this.state.order} onChange={this.changeOrder} /></span>
+          <span style={{marginLeft:'30px'}}>系统code：<Input value={this.state.sysCode} onChange={this.change} /></span>
+          <span style={{marginLeft:'30px'}}>上下文：<Input value={this.state.context} onChange={this.changecontext} /></span>
         </IceContainer>
         <IceContainer>
-          <Table dataSource={dataSource} hasBorder={false} primaryKey='order'>
+          <Table dataSource={dataSource} hasBorder={false} primaryKey='context'>
             <Table.Column width={60} title="序号" dataIndex="order"  lock />
+            <Table.Column 
+              width={160} 
+              title="上下文" 
+              dataIndex="context"  
+              lock 
+              cell={this.renderEditor.bind(this, 'context')}
+              />
             <Table.Column
               lock
               width={150}
-              dataIndex="path"
-              title="路径"
-              cell={this.renderEditor.bind(this, 'path')}
+              dataIndex="sysCode"
+              title="系统code"
+              cell={this.renderEditor.bind(this, 'sysCode')}
             />
             <Table.Column
-              width={80}
-              dataIndex="method"
-              title="方式"
-              // cell={this.renderEditor.bind(this, 'method')}
-            />
-            <Table.Column
-              // width={240}
-              dataIndex="sysname"
-              title="所属系统"
+              dataIndex="sysName"
+              title="系统名称"
               width={100}
-              // cell={this.renderEditor.bind(this, 'desc')}
+              cell={this.renderEditor.bind(this, 'sysName')}
             />
             <Table.Column
-              // width={240}
               dataIndex="updateTime"
               title="更新时间"
               width={220}
               cell={this.getTime}
               // cell={this.renderEditor.bind(this, 'desc')}
             />
-            <Table.Column
-              // width={240}
-              width={100}
-              dataIndex="desc"
-              title="接口描述"
-              cell={this.renderEditor.bind(this, 'desc')}
-            />
-            <Table.Column
-              width={100}
-              align="center"
-              dataIndex="isStrict"
-              title="严格模式"
-              cell={this.renderEditor.bind(this, 'isStrict')}
-            />
-            {/* <Table.Column
-              width={100}
-              align="center"
-              dataIndex="isRandom"
-              title="随机数值"
-              cell={this.renderEditor.bind(this, 'isRandom')}
-            /> */}
-            {/* <Table.Column
-              // width={180}
-              align="center"
-              dataIndex="isExtend"
-              title="扩展数组"
-              cell={this.renderEditor.bind(this, 'isExtend')}
-            />
-            <Table.Column
-              // width={180}
-              align="center"
-              dataIndex="nums"
-              title="数组数量"
-              cell={this.renderEditor.bind(this, 'nums')}
-            /> */}
-            {/* <Table.Column
-              // width={180}
-              align="center"
-              dataIndex="result"
-              title="数据示例"
-              cell={this.renderEditor.bind(this, 'result')}
-            /> */}
-            <Table.Column title="操作" width={120} align="center" cell={this.renderOperation.bind(this,dataSource)} />
             <Table.Column title="删除" width={80} align="center" cell={this.renderDelete} />
           </Table>
+          <div onClick={this.addNewItem} style={styles.addNewItem}>
+            + 新增一行
+          </div>
           <Pagination
             style={styles.pagination}
             total={this.state.filterData.length}
@@ -348,9 +292,7 @@ export default class EditableTable extends Component {
             // current={this.state.current}
             onChange={this.handlePagination}
           />
-          {/* <div onClick={this.addNewItem} style={styles.addNewItem}>
-            + 新增一行
-          </div> */}
+          
         </IceContainer>
       </div>
     );
