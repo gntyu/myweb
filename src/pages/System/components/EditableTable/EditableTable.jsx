@@ -110,10 +110,12 @@ export default class EditableTable extends Component {
     );
   };
 
-  renderDelete = (value, index,order) => {
+  renderDelete = (value, index,record) => {
+    // console.log('record',record)
+    const flag=(record&&record.order)?record.order<6:false
     return  (
       <div>
-          <Button onClick={this.deleteItem.bind(this, order)} shape="text">
+          <Button onClick={this.deleteItem.bind(this,record)} shape="text" disabled={flag}>
             删除
           </Button>
         </div>
@@ -242,7 +244,7 @@ export default class EditableTable extends Component {
     const dataSource =this.state.filterData.slice((current-1)*10,(current-1)*10+9);
     // const filter = this.state.filterData;
 
-    console.log('dataSource',dataSource)
+    // console.log('dataSource',dataSource)
     return (
       <div className="editable-table">
         <IceContainer>
