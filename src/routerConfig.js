@@ -17,6 +17,7 @@ import Develope from './pages/Develope';
 import Apilist from './pages/Apilist';
 import TestTable from './pages/TestTable';
 import Weibo from './pages/Weibo';
+import Dynamic from './pages/Dynamic';
 import UserRegister from './pages/UserRegister';
 
 const routerConfig = [
@@ -29,6 +30,11 @@ const routerConfig = [
     path: '/weibo',
     layout: BasicLayout,
     component: Weibo,
+  },
+  {
+    path: '/dynamic',
+    layout: BasicLayout,
+    component: Dynamic,
   },
   {
     path: '/home',

@@ -17,7 +17,7 @@ const headerMenuConfig = [
   },
   {
     name: ' 业务支撑',
-    path: '/',
+    path: '/dynamic',
   },
   {
     name: '社区运营',

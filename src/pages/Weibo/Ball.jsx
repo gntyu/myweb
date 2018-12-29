@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DataBinder from '@icedesign/data-binder';
-import Chart from './fromEchart';
+import Chart from '@common/Chart';
 
 @DataBinder({
   

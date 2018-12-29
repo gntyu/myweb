@@ -255,14 +255,18 @@ export default class EditableTable extends Component {
           close={()=>{this.setState({showDialog:false})}}
         />
         <IceContainer>
-          <CheckboxGroup
-            className="next-form-text-align"
-            onChange={this.changeCheck}
-            dataSource={list}
-            value={this.state.list}
-          />
-          <span style={{marginLeft:'30px'}}>路径：<Input value={this.state.path} onChange={this.change} /></span>
-          <span style={{marginLeft:'30px'}}>序号：<Input value={this.state.order} onChange={this.changeOrder} /></span>
+          <div>
+            <CheckboxGroup
+              className="next-form-text-align"
+              onChange={this.changeCheck}
+              dataSource={list}
+              value={this.state.list}
+            />
+          </div>
+          <div style={{marginTop:'20px'}}>
+            <span >路径：<Input value={this.state.path} onChange={this.change} /></span>
+            <span style={{marginLeft:'30px'}}>序号：<Input value={this.state.order} onChange={this.changeOrder} /></span>
+          </div>
         </IceContainer>
         <IceContainer>
           <Table dataSource={dataSource} hasBorder={false} primaryKey='order'>
@@ -301,6 +305,12 @@ export default class EditableTable extends Component {
               dataIndex="desc"
               title="接口描述"
               cell={this.renderEditor.bind(this, 'desc')}
+            />
+            <Table.Column
+              // width={240}
+              width={80}
+              dataIndex="times"
+              title="请求次数"
             />
             <Table.Column
               width={100}
