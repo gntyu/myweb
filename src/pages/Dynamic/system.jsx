@@ -38,8 +38,7 @@ export default class wholeDay extends Component {
   const option = {
     color: colors,
     title: {
-        text: "实时使用量分析",
-        subtext:'使用总量：'+this.props.data.total,
+        text: "使用量TOP20",
         textStyle: {
             fontWeight: 'normal',
             fontSize: 16,
@@ -87,7 +86,7 @@ export default class wholeDay extends Component {
                 color: colors[1]
             }
         },
-        data:data.map(item=>item.date)
+        data:data.map(item=>item.path)
     }],
     yAxis:{
         type: 'value',
@@ -110,38 +109,19 @@ export default class wholeDay extends Component {
     },
     series: [{
         name: '使用次数',
-        type: 'line',
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 5,
-        showSymbol: false,
-        lineStyle: {
-            normal: {
-                width: 1
-            }
-        },
-        areaStyle: {
-            normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                    offset: 0,
-                    color: 'rgba(219, 50, 51, 0.3)'
-                }, {
-                    offset: 0.8,
-                    color: 'rgba(219, 50, 51, 0)'
-                }], false),
-                shadowColor: 'rgba(0, 0, 0, 0.1)',
-                shadowBlur: 10
-            }
-        },
+        type: 'bar',
         itemStyle: {
             normal: {
-
                 color: 'rgb(219,50,51)',
                 borderColor: 'rgba(219,50,51,0.2)',
-                borderWidth: 12
             }
         },
-        data:data.map(item=>item.value)
+        data:data.map(item=>{
+            return{
+                value:item.times,
+                ...item
+            }
+        })
     }]
     };
     return (
