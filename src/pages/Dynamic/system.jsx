@@ -32,13 +32,13 @@ export default class wholeDay extends Component {
 
   render() {
 
-  const data=this.props.data.list;
+  const {data,type}=this.props;
   const colors = ['#57617B', '#57617B', '#57617B', 'black'];
 
   const option = {
     color: colors,
     title: {
-        text: "使用量TOP20",
+        // text: "使用量TOP20",
         textStyle: {
             fontWeight: 'normal',
             fontSize: 16,
@@ -86,7 +86,7 @@ export default class wholeDay extends Component {
                 color: colors[1]
             }
         },
-        data:data.map(item=>item.path)
+        data:data.list.map(item=>item.xdata)
     }],
     yAxis:{
         type: 'value',
@@ -96,7 +96,7 @@ export default class wholeDay extends Component {
         axisLine: {
             lineStyle: {
                 color: colors[2]
-            }
+            },
         },
         axisLabel: {
             formatter: '{value}次'
@@ -105,7 +105,8 @@ export default class wholeDay extends Component {
             lineStyle: {
                 color: '#57617B'
             }
-        },
+        }
+        
     },
     series: [{
         name: '使用次数',
@@ -116,12 +117,11 @@ export default class wholeDay extends Component {
                 borderColor: 'rgba(219,50,51,0.2)',
             }
         },
-        data:data.map(item=>{
-            return{
-                value:item.times,
-                ...item
-            }
-        })
+        label:{
+            show:true
+        },
+        barMinHeight:30,
+        data:data.list.map(item=>item.ydata)
     }]
     };
     return (
