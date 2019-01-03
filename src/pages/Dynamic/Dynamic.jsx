@@ -103,12 +103,12 @@ export default class Weibo extends Component {
         <Tab type="text" size="small">
           <TabPane tab="系统汇总" key="a">
             <Row type='wrap'>
-              <Col span='24'> <System data={system} type='a'/></Col>
+              <Col span='24'> <System data={system.list} sys={system.list} type='a'/></Col>
             </Row>
           </TabPane>
           <TabPane tab="TOP20" key="b">
             <Row type='wrap'>
-              <Col span='24'> <System data={tops} type='b' /></Col>
+              <Col span='24'> <System data={tops.list} sys={system.list} type='b' /></Col>
             </Row>
           </TabPane>
         </Tab>

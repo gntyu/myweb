@@ -32,8 +32,12 @@ export default class wholeDay extends Component {
 
   render() {
 
-  const {data,type}=this.props;
+  const {data,sys,type}=this.props;
   const colors = ['#57617B', '#57617B', '#57617B', 'black'];
+  const sysColor ={};
+  sys.map((item,index)=>{
+    sysColor[item.xdata]=colorList[index];
+   })
 
   const option = {
     color: colors,
@@ -86,7 +90,7 @@ export default class wholeDay extends Component {
                 color: colors[1]
             }
         },
-        data:data.list.map(item=>item.xdata)
+        data:data.map(item=>item.xdata)
     }],
     yAxis:{
         type: 'value',
@@ -113,15 +117,32 @@ export default class wholeDay extends Component {
         type: 'bar',
         itemStyle: {
             normal: {
-                color: 'rgb(219,50,51)',
-                borderColor: 'rgba(219,50,51,0.2)',
+                // color: 'rgb(219,50,51)',
+                color:(params)=>{
+                    // console.log('params',params)
+                    if(params.data.syscode){
+                        return sysColor[params.data.syscode]
+                    }else{
+                        return sysColor[params.data.xdata]
+                    }
+                },
+                // borderColor: 'rgba(219,50,51,0.2)',
             }
         },
         label:{
-            show:true
+            show:true,
+            formatter:(params)=>{
+                // console.log('params',params)
+                if(params.data.syscode){
+                    return params.value+'\n'+params.data.syscode
+                }else{
+                    return params.value
+                }
+
+            }
         },
         barMinHeight:30,
-        data:data.list.map(item=>item.ydata)
+        data:data.map(item=>{return{value:item.ydata,...item}})
     }]
     };
     return (
@@ -138,3 +159,19 @@ const data = {
   "2": 0.35,
   "3": 0.83,
 };
+
+var colorList = [
+    '#ff2600',
+    '#ffc000',
+    '#00ad4e',
+    '#0073c2',
+    '#165868',
+    '#e76f00',
+    '#316194',
+    '#723761',
+    '#00b2f1',
+    '#4d6022',
+    '#4b83bf',
+    '#f9c813',
+    '#0176c0'
+];

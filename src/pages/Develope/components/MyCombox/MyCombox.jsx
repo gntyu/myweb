@@ -10,7 +10,7 @@ const onChange = function(...args) {
 
 @DataBinder({
   'testMuch': {
-    url: '/api-portal/testMuch',
+    url: '/qita/testMuch',
     method: 'post',
     data: { },
     defaultBindingData: {

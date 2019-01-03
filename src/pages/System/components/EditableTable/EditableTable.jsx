@@ -19,7 +19,7 @@ const generatorData = () => {
 
 @DataBinder({
   'system': {
-    url: '/lyapi/system',
+    url: '/lyapi/systems',
     method: 'post',
     data: { },
     defaultBindingData: {
