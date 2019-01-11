@@ -23,7 +23,7 @@ const generatorData = () => {
     method: 'post',
     data: { },
     defaultBindingData: {
-      dataSource:[]
+      list:[]
     }
   },
   'delete': {
@@ -63,7 +63,7 @@ export default class EditableTable extends Component {
     this.state = {
       dataSource: generatorData(),
       visible:false,
-      list:['uc','kpi','qita'],
+      list:window.myglobal.lastCheck,
       path:'',
       order:'',
       filterData:[],
@@ -186,6 +186,7 @@ export default class EditableTable extends Component {
     this.setState({
       list,
     },()=>{this.update()});
+    window.myglobal.setLastCheck(list);
   }
 
   getTime=(time)=>{

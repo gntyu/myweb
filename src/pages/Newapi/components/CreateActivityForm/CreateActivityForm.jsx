@@ -74,7 +74,7 @@ export default class CreateActivityForm extends Component {
       isStrict:false,
       method:'POST',
       isExtend: false,
-      syscode:'uc',
+      syscode:window.myglobal.lastSys,
     }
     this.state = {
       value: {
@@ -93,6 +93,7 @@ export default class CreateActivityForm extends Component {
     this.setState({
       value,
     });
+    if(value.syscode)window.myglobal.setLastSys(value.syscode)
   };
 
   reset = () => {
@@ -111,11 +112,15 @@ export default class CreateActivityForm extends Component {
         // 处理表单报错
         return ;
       }
-
       // 提交当前填写的数据
       this.props.updateBindingData('addapi',{data:value},(res)=>{
         if(res.errorCode==0){
           Feedback.toast.success('添加成功');
+          const {value}=this.state;
+          value.path='';
+          value.desc='';
+          value.result='';
+          this.setState({value});
         }else{
           Feedback.toast.error(res.errorDetail);
         }
@@ -143,7 +148,7 @@ export default class CreateActivityForm extends Component {
                 </Col>
 
                 <Col s="12" l="10">
-                  /api-portal/
+                  /context/
                   <IceFormBinder
                     name="path"
                     required
@@ -159,14 +164,16 @@ export default class CreateActivityForm extends Component {
                   所属系统：
                 </Col>
                 <Col s="12" l="10">
-                  <IceFormBinder name="syscode" >
+                  <IceFormBinder name="syscode"   
+                    required
+                    message="所属系统必须选择">
                     <Select
                       className="next-form-text-align"
                       style={{width:'100%'}}
-                      defaultValue="uc"
                       dataSource={list}
                     />
                   </IceFormBinder>
+                  <IceFormError name="syscode" />
                 </Col>
               </Row>
 
