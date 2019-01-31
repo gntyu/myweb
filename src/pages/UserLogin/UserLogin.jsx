@@ -1,7 +1,7 @@
 /* eslint react/no-string-refs:0 */
 import React, { Component } from 'react';
 import { Link ,withRouter} from 'react-router-dom';
-import { Input, Button, Checkbox, Grid, Feedback } from '@icedesign/base';
+import { Input, Button, Checkbox, Grid ,Message} from '@alifd/next';
 import DataBinder from '@icedesign/data-binder';
 
 import {
@@ -57,10 +57,10 @@ export default class UserLogin extends Component {
       console.log('values:', values);
       this.props.updateBindingData('login',{data:values},(res)=>{
         if(res.errorCode==0){
-          Feedback.toast.success('登录成功');
+          Message.success('登录成功');
           this.props.history.push('/home');
         }else{
-          Feedback.toast.error(res.errorDetail);
+          Message.error(res.errorDetail);
         }
         
         // 登录成功后做对应的逻辑处理

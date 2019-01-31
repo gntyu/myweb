@@ -4,7 +4,7 @@ import MySearch from './components/MySearch'
 import TagTable from './components/TagTable'
 import MyCombox from './components/MyCombox'
 import {jsonp} from '@utils/tools';
-import { Select } from '@icedesign/base';
+import { Select } from '@alifd/next';
 const _ = require('lodash');
 
 export default class Develope extends Component {

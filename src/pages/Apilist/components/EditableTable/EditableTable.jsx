@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Table,Pagination, Button,Switch,Feedback,Checkbox,Input } from '@icedesign/base';
+import { Table,Pagination, Button,Switch,Checkbox,Input,Message } from '@alifd/next';
 import DataBinder from '@icedesign/data-binder';
 import CellEditor from './CellEditor';
 import SimpleFormDialog from '../SimpleFormDialog';
@@ -80,10 +80,10 @@ export default class EditableTable extends Component {
   deleteItem = (order) => {
     this.props.updateBindingData('delete',{data:order},(res)=>{
       if(res.errorCode==0){
-        Feedback.toast.success('删除成功!');
+        Message.success('删除成功!');
         this.update();
       }else{
-        Feedback.toast.error(res.errorDetail);
+        Message.error(res.errorDetail);
       }
     })
   };
@@ -113,7 +113,7 @@ export default class EditableTable extends Component {
   renderDelete = (value, index,order) => {
     return  (
       <div>
-          <Button onClick={this.deleteItem.bind(this, order)} shape="text">
+          <Button onClick={this.deleteItem.bind(this, order)} text={true}>
             删除
           </Button>
         </div>
@@ -132,10 +132,10 @@ export default class EditableTable extends Component {
 
     this.props.updateBindingData('update',{data:item},(res)=>{
       if(res.errorCode==0){
-        Feedback.toast.success('更新成功!');
+        Message.success('更新成功!');
         this.update();
       }else{
-        Feedback.toast.error(res.errorDetail);
+        Message.error(res.errorDetail);
       }
     })
   };
@@ -270,7 +270,7 @@ export default class EditableTable extends Component {
           </div>
         </IceContainer>
         <IceContainer>
-          <Table dataSource={dataSource} hasBorder={false} primaryKey='order'>
+          <Table dataSource={dataSource} primaryKey='order'>
             <Table.Column width={60} title="序号" dataIndex="order"  lock />
             <Table.Column
               lock
@@ -363,6 +363,7 @@ export default class EditableTable extends Component {
             + 新增一行
           </div> */}
         </IceContainer>
+       
       </div>
     );
   }

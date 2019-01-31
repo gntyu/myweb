@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import echarts from 'echarts/lib/echarts';
 import Chart from '@common/Chart';
@@ -8,14 +7,6 @@ import Chart from '@common/Chart';
 
 export default class wholeDay extends Component {
   static displayName = 'wholeDay';
-
-  static propTypes = {
-    value: PropTypes.string,
-  };
-
-  static defaultProps = {
-    value: 'string data',
-  };
 
   constructor(props) {
     super(props);

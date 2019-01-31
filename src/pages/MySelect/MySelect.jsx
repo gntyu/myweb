@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TreeSelect,Icon} from '@icedesign/base';
+import { TreeSelect,Icon} from '@alifd/next';
 import './index.scss';
 
 export default class MySelect extends Component {

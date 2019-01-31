@@ -10,12 +10,10 @@ import {
   Button,
   Checkbox,
   Select,
-  DatePicker,
   Switch,
   Radio,
-  Grid,
-  Feedback
-} from '@icedesign/base';
+  Grid,Message
+} from '@alifd/next';
 import DataBinder from '@icedesign/data-binder';
 
 const { Row, Col } = Grid;
@@ -23,7 +21,6 @@ const { Row, Col } = Grid;
 // FormBinder 用于获取表单组件的数据，通过标准受控 API value 和 onChange 来双向操作数据
 const CheckboxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;
-const { RangePicker } = DatePicker;
 
 // Switch 组件的选中等 props 是 checked 不符合表单规范的 value 在此做转换
 const SwitchForForm = (props) => {
@@ -115,14 +112,14 @@ export default class CreateActivityForm extends Component {
       // 提交当前填写的数据
       this.props.updateBindingData('addapi',{data:value},(res)=>{
         if(res.errorCode==0){
-          Feedback.toast.success('添加成功');
+          Message.success('添加成功');
           const {value}=this.state;
           value.path='';
           value.desc='';
           value.result='';
           this.setState({value});
         }else{
-          Feedback.toast.error(res.errorDetail);
+          Message.error(res.errorDetail);
         }
       });
  

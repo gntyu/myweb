@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Dialog, Grid, Input, Radio, Button, Feedback } from '@icedesign/base';
+import { Dialog, Grid, Input, Radio, Button,Message } from '@alifd/next';
+
 import IceContainer from '@icedesign/container';
 import {
   FormBinderWrapper as IceFormBinderWrapper,
@@ -126,9 +127,9 @@ export default class SimpleFormDialog extends Component {
         },(res)=>{
           this.props.update();
           if(res.errorCode==0){
-            Feedback.toast.success('更新成功!');
+            Message.success('更新成功!');
           }else{
-            Feedback.toast.error(res.errorDetail);
+            Message.error(res.errorDetail);
           }
       })
 
@@ -199,10 +200,9 @@ export default class SimpleFormDialog extends Component {
               <Row style={styles.formRow}>
                 <Col>
                   <IceFormBinder name="content">
-                    <Input
+                    <Input.TextArea
                       // name="value"
                       style={styles.input}
-                      multiple
                       // placeholder="请输入详细内容"
                       rows={16}
                       // value={this.state.value.content}
@@ -217,6 +217,7 @@ export default class SimpleFormDialog extends Component {
           更改示例
         </Button> */}
       </div>
+
     );
   }
 }

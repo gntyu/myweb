@@ -1,6 +1,6 @@
 import React from 'react';
 import IceContainer from '@icedesign/container';
-import { Grid } from '@icedesign/base';
+import { Grid } from '@alifd/next';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { List as VList } from 'react-virtualized/dist/commonjs/List';
 import ReactHeight from 'react-height'

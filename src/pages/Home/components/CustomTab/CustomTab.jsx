@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Tab } from '@icedesign/base';
+import { Grid, Tab } from '@alifd/next';
 import IceContainer from '@icedesign/container';
 import CustomTable from '../CustomTable';
 import './CustomTab.scss';

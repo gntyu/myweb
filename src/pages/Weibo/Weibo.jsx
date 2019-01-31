@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Tab,Grid } from '@icedesign/base';
+
+import { Grid,Tab } from '@alifd/next';
 import Ball from './Ball';
 
 const { Row, Col} =Grid;
-const TabPane = Tab.TabPane;
+const TabPane = Tab.Item;
 
 const MOCK_DATA = {
   all: {
@@ -42,20 +43,20 @@ export default class Weibo extends Component {
     return (
       <IceContainer className="flow-statistics">
         <h4 style={styles.title}> 百分比</h4>
-        <Tab type="text" size="small">
-          <TabPane tab="本月" key="1">
-            <Row type='wrap'>
+        <Tab shape="text">
+          <TabPane title="本月" key="1">
+            <Row wrap>
               <Col span='12'> <Ball type="1" /></Col>
             </Row>
 
           </TabPane>
-          <TabPane tab="半年" key="2">
-            <Row type='wrap'>
+          <TabPane title="半年" key="2">
+            <Row wrap>
               <Col span='12'> <Ball type="2" /></Col>
             </Row>
           </TabPane>
-          <TabPane tab="一年" key="3">
-            <Row type='wrap'>
+          <TabPane title="一年" key="3">
+            <Row wrap>
               <Col span='12'> <Ball type="3" /></Col>
             </Row>
           </TabPane>

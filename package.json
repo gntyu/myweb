@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "该模板适用于应用管理类的管理后台，默认内置一个 Dashboard 页面，使用时需要根据需求进行删除和添加",
   "dependencies": {
-    "@icedesign/base": "^0.2.5",
+    "@alifd/next": "^1.12.3",
+    "@alifd/theme-5800": "^0.1.4",
     "@icedesign/card": "^0.1.2",
     "@icedesign/container": "^0.1.0",
     "@icedesign/data-binder": "^0.1.8",
@@ -11,7 +12,7 @@
     "@icedesign/img": "^0.1.2",
     "@icedesign/layout": "^0.1.2",
     "@icedesign/menu": "^0.1.1",
-    "@icedesign/skin": "^0.1.0",
+    "@icedesign/theme": "^0.1.2",
     "classnames": "^2.2.5",
     "csvtojson": "^2.0.8",
     "echarts": "^4.2.0-rc.2",
@@ -46,12 +47,9 @@
     "access": "public"
   },
   "buildConfig": {
-    "theme": "@icedesign/skin",
+    "theme": "@icedesign/theme",
     "entry": "src/index.js",
     "localization": false
-  },
-  "themeConfig": {
-    "primaryColor": "#09f"
   },
   "scaffoldConfig": {
     "name": "ice-application-management-admin",

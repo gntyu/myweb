@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Search,Icon} from '@icedesign/base';
+import { Search,Icon} from '@alifd/next';
 import './index.scss';
 
 

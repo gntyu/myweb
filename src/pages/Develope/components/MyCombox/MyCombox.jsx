@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TreeSelect,Icon,Select} from '@icedesign/base';
+import { TreeSelect,Icon,Select} from '@alifd/next';
 import DataBinder from '@icedesign/data-binder';
 import './index.scss';
 

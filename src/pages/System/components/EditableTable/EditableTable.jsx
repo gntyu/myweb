@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Table,Pagination, Button,Switch,Feedback,Checkbox,Input } from '@icedesign/base';
+import { Table,Pagination, Button,Switch,Checkbox,Input,Message } from '@alifd/next';
 import DataBinder from '@icedesign/data-binder';
 import CellEditor from './CellEditor';
 
@@ -64,7 +64,6 @@ export default class EditableTable extends Component {
     this.state = {
       dataSource: generatorData(),
       visible:false,
-
       sysCode:'',
       context:'',
       filterData:[],
@@ -80,10 +79,10 @@ export default class EditableTable extends Component {
   deleteItem = (context) => {
     this.props.updateBindingData('delete',{data:context},(res)=>{
       if(res.errorCode==0){
-        Feedback.toast.success('删除成功!');
+        Message.success('删除成功!');
         this.update();
       }else{
-        Feedback.toast.error(res.errorDetail);
+        Message.error(res.errorDetail);
       }
     })
   };
@@ -115,7 +114,7 @@ export default class EditableTable extends Component {
     const flag=(record&&record.order)?record.order<6:false
     return  (
       <div>
-          <Button onClick={this.deleteItem.bind(this,record)} shape="text" disabled={flag}>
+          <Button onClick={this.deleteItem.bind(this,record)} text={true} disabled={flag}>
             删除
           </Button>
         </div>
@@ -134,10 +133,10 @@ export default class EditableTable extends Component {
 
     this.props.updateBindingData('update',{data:item},(res)=>{
       if(res.errorCode==0){
-        Feedback.toast.success('更新成功!');
+        Message.success('更新成功!');
         this.update();
       }else{
-        Feedback.toast.error(res.errorDetail);
+        Message.error(res.errorDetail);
       }
     })
   };
@@ -152,7 +151,6 @@ export default class EditableTable extends Component {
   }
 
   changecontext =(context)=>{
-    context =context.replace(/[^0-9]/g,"");
     this.setState({
       context,
     },()=>{
@@ -244,7 +242,7 @@ export default class EditableTable extends Component {
     const dataSource =this.state.filterData.slice((current-1)*10,(current-1)*10+9);
     // const filter = this.state.filterData;
 
-    // console.log('dataSource',dataSource)
+    console.log('dataSource',dataSource)
     return (
       <div className="editable-table">
         <IceContainer>
@@ -252,7 +250,7 @@ export default class EditableTable extends Component {
           <span style={{marginLeft:'30px'}}>上下文：<Input value={this.state.context} onChange={this.changecontext} /></span>
         </IceContainer>
         <IceContainer>
-          <Table dataSource={dataSource} hasBorder={false} primaryKey='context'>
+          <Table dataSource={dataSource} hasBorder={false} primaryKey='order'>
             <Table.Column width={60} title="序号" dataIndex="order"  lock />
             <Table.Column 
               width={160} 

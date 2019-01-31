@@ -1,7 +1,7 @@
 /* eslint react/no-string-refs:0 */
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Input, Button, Grid, Feedback } from '@icedesign/base';
+import { Input, Button, Grid ,Message} from '@alifd/next';
 import DataBinder from '@icedesign/data-binder';
 
 import {
@@ -81,16 +81,16 @@ export default class UserRegister extends Component {
 
       this.props.updateBindingData('register',{data:values},(res)=>{
         if(res.errorCode==0){
-          Feedback.toast.success('注册成功');
+          Message.success('注册成功');
           this.props.history.push('/');
         }else{
-          Feedback.toast.error(res.errorDetail);
+          Message.error(res.errorDetail);
         }
         
         // 登录成功后做对应的逻辑处理
       });
       // console.log('values:', values);
-      // Feedback.toast.success('注册成功');
+      // Message.success('注册成功');
       // // 注册成功后做对应的逻辑处理
       // this.props.history.push('/');
     });

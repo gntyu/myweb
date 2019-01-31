@@ -28,7 +28,7 @@ const headerMenuConfig = [
 const asideMenuConfig = [
   {
     name: '我的应用',
-    path: '/Develope',
+    path: '/',
   },
   {
     name: '新闻',

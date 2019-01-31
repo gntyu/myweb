@@ -1,6 +1,6 @@
 /* eslint react/no-string-refs:0 */
 import React, { Component } from 'react';
-import { Input, Button, Grid, Feedback } from '@icedesign/base';
+import { Input, Button, Grid ,Message} from '@alifd/next';
 import {
   FormBinderWrapper as IceFormBinderWrapper,
   FormBinder as IceFormBinder,
@@ -41,7 +41,7 @@ export default class UserForgetPassword extends Component {
         return;
       }
       console.log('values:', values);
-      Feedback.toast.success('请查看邮件重设密码');
+      Message.success('请查看邮件重设密码');
       // 成功后做对应的逻辑处理
     });
   };

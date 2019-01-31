@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import DataBinder from '@icedesign/data-binder';
 import Chart from '@common/Chart';
 
@@ -9,14 +8,6 @@ import Chart from '@common/Chart';
 
 export default class Line extends Component {
   static displayName = 'Line';
-
-  static propTypes = {
-    value: PropTypes.string,
-  };
-
-  static defaultProps = {
-    value: 'string data',
-  };
 
   constructor(props) {
     super(props);

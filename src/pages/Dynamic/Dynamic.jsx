@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Tab,Grid } from '@icedesign/base';
-import WholeDay from './wholeDay';
-import System from './system';
 import DataBinder from '@icedesign/data-binder';
 
+import { Grid,Tab } from '@alifd/next';
+
+import WholeDay from './wholeDay';
+import System from './system';
+
 const { Row, Col} =Grid;
-const TabPane = Tab.TabPane;
+const TabPane = Tab.Item;
 @DataBinder({
   'today': {
     url: '/lyapi/today',
@@ -47,14 +49,10 @@ const TabPane = Tab.TabPane;
     defaultBindingData: {
       list:[]
     }
-  },
+  }
 })
-export default class Weibo extends Component {
-  static displayName = 'Weibo';
-
-  static propTypes = {};
-
-  static defaultProps = {};
+export default class Dynamic extends Component {
+  static displayName = 'Dynamic';
 
   constructor(props) {
     super(props);
@@ -69,50 +67,50 @@ export default class Weibo extends Component {
     this.props.updateBindingData('system');
   }
 
-  render() {
+  render(){
     const today =this.props.bindingData.today;
     const month =this.props.bindingData.month;
     const recent =this.props.bindingData.recent;
     const tops =this.props.bindingData.tops;
     const system =this.props.bindingData.system;
 
-    return (<div>
+    return (
+      <div>
       <IceContainer className="flow-statistics">
         <h4 style={styles.title}>接口使用情况</h4>
-        <Tab type="text" size="small">
-          <TabPane tab="今日" key="1">
-            <Row type='wrap'>
-              <Col span='24'> <WholeDay type="1" data={today} /></Col>
+        <Tab shape="text" >
+          <TabPane title="今日" key="1">
+            <Row wrap>
+              <Col span='24'> <WholeDay data={today} /></Col>
             </Row>
 
           </TabPane>
-          <TabPane tab="本月" key="2">
-            <Row type='wrap'>
-              <Col span='24'> <WholeDay type="2" data={month} /></Col>
+          <TabPane title="本月" key="2">
+            <Row wrap>
+              <Col span='24'> <WholeDay data={month} /></Col>
             </Row>
           </TabPane>
-          <TabPane tab="最近" key="3">
-            <Row type='wrap'>
-              <Col span='24'> <WholeDay type="2" data={recent} /></Col>
+          <TabPane title="最近" key="3">
+            <Row wrap>
+              <Col span='24'> <WholeDay data={recent} /></Col>
             </Row>
           </TabPane>
         </Tab>
       </IceContainer>
       <IceContainer className="flow-statistics">
         <h4 style={styles.title}>接口使用类型</h4>
-        <Tab type="text" size="small">
-          <TabPane tab="系统汇总" key="a">
-            <Row type='wrap'>
-              <Col span='24'> <System data={system.list} sys={system.list} type='a'/></Col>
+        <Tab shape="text" >
+          <TabPane title="系统汇总" key="a">
+            <Row wrap>
+              <Col span='24'> <System data={system.list} sys={system.list} /></Col>
             </Row>
           </TabPane>
-          <TabPane tab="TOP20" key="b">
-            <Row type='wrap'>
-              <Col span='24'> <System data={tops.list} sys={system.list} type='b' /></Col>
+          <TabPane title="TOP20" key="b">
+            <Row wrap>
+              <Col span='24'> <System data={tops.list} sys={system.list} /></Col>
             </Row>
           </TabPane>
         </Tab>
-       
       </IceContainer>
       </div>
     );

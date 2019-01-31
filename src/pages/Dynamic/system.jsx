@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import echarts from 'echarts/lib/echarts';
 import Chart from '@common/Chart';
@@ -8,14 +7,6 @@ import Chart from '@common/Chart';
 
 export default class wholeDay extends Component {
   static displayName = 'wholeDay';
-
-  static propTypes = {
-    value: PropTypes.string,
-  };
-
-  static defaultProps = {
-    value: 'string data',
-  };
 
   constructor(props) {
     super(props);
@@ -32,7 +23,7 @@ export default class wholeDay extends Component {
 
   render() {
 
-  const {data,sys,type}=this.props;
+  const {data,sys}=this.props;
   const colors = ['#57617B', '#57617B', '#57617B', 'black'];
   const sysColor ={};
   sys.map((item,index)=>{

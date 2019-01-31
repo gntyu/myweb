@@ -72,11 +72,6 @@ const routerConfig = [
     component: System,
   },
   {
-    path: '/Develope',
-    layout: BasicLayout,
-    component: Develope,
-  },
-  {
     path: '/apilist',
     layout: BasicLayout,
     component: Apilist,
