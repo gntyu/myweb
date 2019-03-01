@@ -3,6 +3,12 @@ import IceContainer from '@icedesign/container';
 import { Table,Pagination, Button,Switch,Checkbox,Input,Message } from '@alifd/next';
 import DataBinder from '@icedesign/data-binder';
 import CellEditor from './CellEditor';
+// import DateRangePicker from 'react-bootstrap-daterangepicker';
+// import DatetimeRangePicker from 'react-bootstrap-datetimerangepicker';
+// import {DateTimeRangePicker} from '@/components/bootstrap/index';
+
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap-daterangepicker/daterangepicker.css';
 
 import './EditableTable.scss';
 
@@ -203,7 +209,6 @@ export default class EditableTable extends Component {
   }
 
   renderEditor = (valueKey, value, index, record) => {
-
     if(valueKey=='isRandom'||valueKey=='isExtend'||valueKey=='isStrict'){
       // console.log('===value:',value)
       return (
@@ -248,6 +253,22 @@ export default class EditableTable extends Component {
         <IceContainer>
           <span style={{marginLeft:'30px'}}>系统code：<Input value={this.state.sysCode} onChange={this.change} /></span>
           <span style={{marginLeft:'30px'}}>上下文：<Input value={this.state.context} onChange={this.changecontext} /></span>
+          {/* <DateTimeRangePicker
+              label="时间段"
+              wrapperClassName="eui-wrapper"
+          /> */}
+          {/* <DateRangePicker showDropdowns startDate="1/1/2014" endDate="3/1/2014">
+            <button>Click Me To Open Picker!</button>
+          </DateRangePicker> */}
+          {/* <DatetimeRangePicker
+            timePicker
+            timePicker24Hour
+            showDropdowns
+            timePickerSeconds
+            startDate="1/1/2014"
+            endDate="3/1/2014"
+
+          /> */}
         </IceContainer>
         <IceContainer>
           <Table dataSource={dataSource} hasBorder={false} primaryKey='order'>

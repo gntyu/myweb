@@ -1,0 +1,36 @@
+/**
+ * @file css/select.less
+ *
+ * Select 样式
+ */
+
+.select-wrap-hidden {
+    display: none;
+}
+
+.eui-select {
+    > .eui-select-item-renderer {
+        & + .eui-select-item-renderer {
+            margin-left: -1px;
+        }
+    }
+
+    .dropdown-menu {
+        min-width: 100%;
+        padding: 0;
+        margin: 0;
+        .border-radius(0);
+        .box-shadow(0 2px 1px 0 rgba(0,0,0,.15));
+
+        > li > a {
+            display: inline-block;
+            width: 100%;
+            line-height: 30px;
+            padding: 0 10px;
+            background: none;
+            &:hover {
+                background-color: #E9E9E9;
+            }
+        }
+    }
+}

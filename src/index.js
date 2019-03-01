@@ -4,6 +4,8 @@ import '@alifd/next/reset.scss';
 import '@/base.scss';
 import router from './router';
 import '@utils/global';
+// import '@utils/monitorES5';
+
 
 const ICE_CONTAINER = document.getElementById('ice-container');
 

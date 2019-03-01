@@ -107,6 +107,21 @@ export default class SimpleFormDialog extends Component {
         // show validate error
         return;
       }
+ 
+      const content = this.state.value.content;
+      try {
+        var obj=JSON.parse(content);
+        if(typeof obj == 'object' && obj ){
+          Message.error('格式不正确');
+        }else{
+          Message.error('格式不正确');
+        }
+      } catch(e) {
+        Message.error('格式不正确');
+        return ;
+      }
+        
+        
       this.props.close()
       // deal with value
       let sysname ='';

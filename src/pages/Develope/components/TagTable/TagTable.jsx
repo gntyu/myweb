@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import { Table, Input, Select, Grid } from '@alifd/next';
 import { FormBinderWrapper, FormBinder } from '@icedesign/form-binder';
-import IceCard from '@icedesign/card';
-
+// import IceCard from '@icedesign/card';
+import { Card } from '@alifd/next';
+const IceCard=Card;
 const { Combobox } = Select;
 const { Row, Col } = Grid;
 
