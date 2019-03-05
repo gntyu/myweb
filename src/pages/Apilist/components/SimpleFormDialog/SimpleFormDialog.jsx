@@ -110,12 +110,7 @@ export default class SimpleFormDialog extends Component {
  
       const content = this.state.value.content;
       try {
-        var obj=JSON.parse(content);
-        if(typeof obj == 'object' && obj ){
-          Message.error('格式不正确');
-        }else{
-          Message.error('格式不正确');
-        }
+        JSON.parse(content);
       } catch(e) {
         Message.error('格式不正确');
         return ;

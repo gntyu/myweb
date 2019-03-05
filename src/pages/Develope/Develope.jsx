@@ -5,6 +5,9 @@ import TagTable from './components/TagTable'
 import MyCombox from './components/MyCombox'
 import {jsonp} from '@utils/tools';
 import { Select } from '@alifd/next';
+import DateRangePickerBTS from '@/components/DateRangePickerBTS';
+import DateRangePicker from '@bop/daterangepicker';
+
 const _ = require('lodash');
 
 export default class Develope extends Component {
@@ -36,13 +39,41 @@ export default class Develope extends Component {
   render() {
     return (
       <div className="develope-page">
-        <Myselect />
-        <MySearch />
-        <TagTable />
-        
-        <MyCombox />
+        <div style ={styles.block}>
+          <h3> Myselect </h3>
+          <Myselect />
+        </div>
+        <div  style ={styles.block}>
+          <h3> MySearch </h3>
+          <MySearch />
+        </div>
+        <div  style ={styles.block}>
+          <h3> TagTable </h3>
+          <TagTable />
+        </div>
+        <div style ={styles.block}>
+          <h3> DateRangePickerBTS </h3>
+          <DateRangePickerBTS /> 
+        </div>
+        <div style ={styles.block}>
+          <h3> @bop/daterangepicker </h3>
+          <DateRangePicker  onChange={this.change}/>
+        </div>
+        <div style ={styles.block}>
+          <h3> MyCombox </h3>
+          <MyCombox />
+        </div>
+
       </div>
     );
   }
 }
 
+const styles={
+  block:{
+    background:'#fff',
+    padding:10,
+    margin:10,
+    borderRadius:'5px'
+  }
+}

@@ -27,6 +27,11 @@ const routerConfig = [
     component: TestTable,
   },
   {
+    path: '/develope',
+    layout: BasicLayout,
+    component: Develope,
+  },
+  {
     path: '/weibo',
     layout: BasicLayout,
     component: Weibo,
