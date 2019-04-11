@@ -6,9 +6,8 @@ import moment from 'moment';
 
 // you will need the css that comes with bootstrap@3. if you are using
 // a tool like webpack, you can do the following:
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 // you will also need the css that comes with bootstrap-daterangepicker
-import 'bootstrap-daterangepicker/daterangepicker.css';
 
 
 const Locale = {
@@ -31,21 +30,34 @@ export default class DateRangePickerBTS extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate:moment(),
-      endDate:moment(),
-      value:props.value||(`${moment().format('YYYY/MM/DD')} - ${moment().format('YYYY/MM/DD')}`)
+      startDate:moment(props.default&&props.default[0])||moment(),
+      endDate:moment(props.default&&props.default[1])||moment(),
+      value:this.getValue(props.default)
     };
+  }
+
+  getValue=(arr)=>{
+    let res='';
+    if(arr&&arr[0]&&arr[1]){
+      res = `${arr[0].format('YYYY/MM/DD')} - ${arr[1].format('YYYY/MM/DD')}`
+    }else{
+      res = `${moment().format('YYYY/MM/DD')} - ${moment().format('YYYY/MM/DD')}`
+    }
+    return res
   }
 
   getRanges=()=>{
     return {
-      最近七天: [moment().subtract(6,'days'), moment()],
-      本月: [moment().startOf('month'), moment().endOf('month')],
-      上月: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-      本季度: [moment().startOf('quarter'), moment().endOf('quarter')],
-      下季度: [moment().add(1, 'quarter').startOf('quarter'), moment().add(1, 'quarter').endOf('quarter')],
-      本年: [moment().startOf('year'), moment().endOf('year')],
-      全部: [moment('2000', 'YYYY').startOf('year'), moment('2050', 'YYYY').endOf('year')]
+      昨天: [moment().subtract(1,'days'), moment().subtract(1,'days')],
+      最近7天: [moment().subtract(6,'days'), moment()],
+      最近30天: [moment().subtract(29,'days'), moment()],
+      // 最近七天: [moment().subtract(6,'days'), moment()],
+      // 本月: [moment().startOf('month'), moment().endOf('month')],
+      // 上月: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+      // 本季度: [moment().startOf('quarter'), moment().endOf('quarter')],
+      // 下季度: [moment().add(1, 'quarter').startOf('quarter'), moment().add(1, 'quarter').endOf('quarter')],
+      // 本年: [moment().startOf('year'), moment().endOf('year')],
+      // 全部: [moment('2000', 'YYYY').startOf('year'), moment('2050', 'YYYY').endOf('year')]
     };
   }
 
@@ -64,15 +76,18 @@ export default class DateRangePickerBTS extends React.Component {
   }
 
   render() {
+    // console.log('this.props',this.props)
+    // console.log('this.state',this.state)
     return (
-      <DateRangePicker 
+      <DateRangePicker
+        startDate={this.state.startDate} 
+        endDate={this.state.endDate} 
         showDropdowns 
         locale={Locale}
         alwaysShowCalendars
         ranges={this.props.ranges||this.getRanges()}
         onApply={this._applyHandler}
         linkedCalendars={false}
-
       >
         <Input
             aria-label="input with config of hasClear"
