@@ -8,7 +8,7 @@ import WholeDay from './wholeDay';
 import System from './system';
 
 const { Row, Col} =Grid;
-const TabPane = Tab.Item;
+
 @DataBinder({
   'today': {
     url: '/lyapi/today',
@@ -79,37 +79,37 @@ export default class Dynamic extends Component {
       <IceContainer className="flow-statistics">
         <h4 style={styles.title}>接口使用情况</h4>
         <Tab shape="text" >
-          <TabPane title="今日" key="1">
+          <Tab.Item title="今日" key="1">
             <Row wrap>
               <Col span='24'> <WholeDay data={today} /></Col>
             </Row>
 
-          </TabPane>
-          <TabPane title="本月" key="2">
+          </Tab.Item>
+          <Tab.Item title="本月" key="2">
             <Row wrap>
               <Col span='24'> <WholeDay data={month} /></Col>
             </Row>
-          </TabPane>
-          <TabPane title="最近" key="3">
+          </Tab.Item>
+          <Tab.Item title="最近" key="3">
             <Row wrap>
               <Col span='24'> <WholeDay data={recent} /></Col>
             </Row>
-          </TabPane>
+          </Tab.Item>
         </Tab>
       </IceContainer>
       <IceContainer className="flow-statistics">
         <h4 style={styles.title}>接口使用类型</h4>
         <Tab shape="text" >
-          <TabPane title="系统汇总" key="a">
+          <Tab.Item title="系统汇总" key="a">
             <Row wrap>
               <Col span='24'> <System data={system.list} sys={system.list} /></Col>
             </Row>
-          </TabPane>
-          <TabPane title="TOP20" key="b">
+          </Tab.Item>
+          <Tab.Item title="TOP20" key="b">
             <Row wrap>
               <Col span='24'> <System data={tops.list} sys={system.list} /></Col>
             </Row>
-          </TabPane>
+          </Tab.Item>
         </Tab>
       </IceContainer>
       </div>

@@ -18,18 +18,20 @@ import Apilist from './pages/Apilist';
 import TestTable from './pages/TestTable';
 import Weibo from './pages/Weibo';
 import Dynamic from './pages/Dynamic';
+import ThreeJs from './pages/ThreeJs';
+import Table from './pages/Table';
 import UserRegister from './pages/UserRegister';
 
 const routerConfig = [
   {
+    path: '/register',
+    layout: UserLayout,
+    component: UserRegister,
+  },
+  {
     path: '/wan',
     layout: BasicLayout,
     component: TestTable,
-  },
-  {
-    path: '/develope',
-    layout: BasicLayout,
-    component: Develope,
   },
   {
     path: '/weibo',
@@ -47,14 +49,19 @@ const routerConfig = [
     component: Home,
   },
   {
+    path: '/threeJs',
+    layout: BasicLayout,
+    component: ThreeJs,
+  },
+  {
     path: '/login',
     layout: UserLayout,
     component: UserLogin,
   },
   {
-    path: '/register',
-    layout: UserLayout,
-    component: UserRegister,
+    path: '/develope',
+    layout: BasicLayout,
+    component: Develope,
   },
   {
     path: '/forgetpassword',
@@ -80,6 +87,11 @@ const routerConfig = [
     path: '/apilist',
     layout: BasicLayout,
     component: Apilist,
+  },
+  {
+    path: '/table',
+    layout: BasicLayout,
+    component: Table,
   },
   {
     path: '*',

@@ -6,6 +6,7 @@ import { Select,Input } from '@alifd/next';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { zhCN } from 'react-date-range/dist/locale'
+import moment from 'moment';
 
 
 export default class Develope extends Component {
@@ -14,7 +15,7 @@ export default class Develope extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        show:true,
+        show:false,
         dateRangePickerI: {
           selection: {
             startDate: new Date(),
@@ -29,19 +30,28 @@ export default class Develope extends Component {
 
     }
 
-    handleRangeChange=(key,range)=>{
+    handleRangeChange=(range)=>{
       console.log(range)
-      const selection= {
-        startDate: null,
-        endDate: null,
-        key: 'selection',
-      }
-      if(range.startDate)selection.startDate=range.startDate
-      if(range.endDate)selection.endDate=range.endDate
+      // const selection= {
+      //   startDate: null,
+      //   endDate: null,
+      //   key: 'selection',
+      // }
+      // if(range.startDate)selection.startDate=range.startDate
+      // if(range.endDate)selection.endDate=range.endDate
       
-     this.setState({
-       [key]:{selection}
-     })
+      this.setState({
+        dateRangePickerI:{
+          ...this.state.dateRangePickerI,
+          ...range
+        }
+      })
+    
+    }
+
+    formatDateDisplay = (date, defaultText) => {
+      if (!date) return defaultText;
+      return moment(date).format('MM/DD/YYYY');
     }
 
     clickInput=()=>{
@@ -53,11 +63,11 @@ export default class Develope extends Component {
       return (
         <div className="my-date-range-page">
             {/* {this.props.children} */}
-            
+            <Input onClick={this.clickInput}/>
             <DateRangePicker
               ref="picker"
               locale={zhCN}
-              onChange={this.handleRangeChange.bind(this, 'dateRangePickerI')}
+              onChange={this.handleRangeChange}
               className={'PreviewArea'}
               months={1}
               direction="vertical"
@@ -66,8 +76,8 @@ export default class Develope extends Component {
               // showDateDisplay={false}
               // enumerable={this.state.show}
             >
-            <Input onClick={this.clickInput}/>
             </DateRangePicker>
+  
           </div>
       );
     }

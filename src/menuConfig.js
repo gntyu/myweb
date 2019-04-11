@@ -21,7 +21,7 @@ const headerMenuConfig = [
   },
   {
     name: '社区运营',
-    path: '/',
+    path: '/threeJs',
   },
 ];
 
@@ -45,6 +45,11 @@ const asideMenuConfig = [
   {
     name: '资源申请',
     path: '/apply',
+  },
+  {
+    name: 'table',
+    path: '/table',
+    icon: 'home',
   },
 ];
 
