@@ -7,6 +7,7 @@ import {jsonp} from '@utils/tools';
 import { Select,Input } from '@alifd/next';
 import DateRangePickerBTS from '@/components/DateRangePickerBTS';
 import MonthRangePickerBTS from '@/components/MonthRangePickerBTS';
+import MonthRangePicker from '@/components/MonthRangePicker';
 
 
 export default class Develope extends Component {
@@ -33,6 +34,10 @@ export default class Develope extends Component {
 
     return (
       <div className="develope-page">
+        <div style ={styles.block}>
+          <h3> QuarterRangePicker </h3>
+          <MonthRangePicker format="YYYY\QQ"/> 
+        </div>
         <div style ={styles.block}>
           <h3> MonthRangePicker </h3>
           <MonthRangePickerBTS /> 

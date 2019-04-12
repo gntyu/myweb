@@ -1,9 +1,8 @@
 
 import React, { Component } from 'react';
-import MonthRangePicker from 'react-bootstrap-monthrangepicker';
+import MonthRangePicker from './ReactMonthRange';
 import { Input } from '@alifd/next';
 import moment from 'moment';
-// import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-monthrangepicker/daterangepicker.css';
 
 export default class MonthRangePickerBTS extends React.Component {
@@ -94,7 +93,7 @@ export default class MonthRangePickerBTS extends React.Component {
         ranges={this.props.ranges||this.getRanges()}
         onApply={this._applyHandler}
         linkedCalendars={false}
-        monthOrQuarter={0}
+        monthOrQuarter={1}
       >
         <Input
             aria-label="input with config of hasClear"

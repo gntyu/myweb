@@ -7,6 +7,7 @@ import moment from 'moment';
 // you will need the css that comes with bootstrap@3. if you are using
 // a tool like webpack, you can do the following:
 // import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-daterangepicker/daterangepicker.css';
 // you will also need the css that comes with bootstrap-daterangepicker
 
 
